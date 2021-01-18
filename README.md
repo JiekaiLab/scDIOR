@@ -1,6 +1,13 @@
 # scIO
 a cross platform data IO software for single cell RNA-seq data
 
+## Download data
+
+```shell
+git clone https://github.com/JiekaiLab/scIO.git
+cd scIO
+```
+
 
 
 ## installation
@@ -63,6 +70,8 @@ import scanpy as sc
 data = myh5.rh5.read_h5(file='./seurat_r.h5')
 ```
 
+
+
 ### 2. The data is saved in Python and can be read in R & Python.
 
 #### Python: import
@@ -96,11 +105,13 @@ data_seurat = read_h5(target.object = 'seurat', file = './scanpy.h5')
 data_sce = read_h5(target.object = 'singlecellexperiment', file = './scanpy.h5')
 ```
 
- ## See our detailed tutorial page for more details 
 
-[RIOH5](https://JiekaiLab.github.io/scIO/scRNA_R_IO.html)
 
-[PyIOH5](https://JiekaiLab.github.io/scIO/scRNA_analysis_Py_IO.html)
+ ## See our tutorial page for more details 
+
+[RIOH5](https://jiekailab.github.io/scIO/sc_data_IO_r.html)
+
+[PyIOH5](https://jiekailab.github.io/scIO/sc_data_IO_python.html)
 
 
 
