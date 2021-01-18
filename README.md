@@ -85,24 +85,24 @@ import scanpy as sc
 
 ```Python
 # read the data from h5ad file
-adata = sc.read( file = './py_scanpy.h5ad')
+adata = sc.read( file = './scanpy.h5ad')
 # save the data into the h5 file 
-myh5.wh5.write_h5(adata=adata, file = './scanpy.h5')
+myh5.wh5.write_h5(adata=adata, file = './py_scanpy.h5')
 ```
 
 #### Python: read data from the h5 file
 
 ```Python
-adata_r = myh5.rh5.read_h5(file ='./scanpy.h5')
+adata_r = myh5.rh5.read_h5(file ='./py_scanpy.h5')
 ```
 
 #### R: read data from the h5 file 
 
 ```R
 # read the h5 file for seurat object
-data_seurat = read_h5(target.object = 'seurat', file = './scanpy.h5')
+data_seurat = read_h5(target.object = 'seurat', file = './py_scanpy.h5')
 # read the h5 file for singlcellexperiment object
-data_sce = read_h5(target.object = 'singlecellexperiment', file = './scanpy.h5')
+data_sce = read_h5(target.object = 'singlecellexperiment', file = './py_scanpy.h5')
 ```
 
 
