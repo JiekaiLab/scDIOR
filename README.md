@@ -1,15 +1,6 @@
 # scDior
 scDior: Single cell data IO softwaRe
 
-## Download data
-
-```shell
-git clone https://github.com/JiekaiLab/scIO.git
-cd scIO
-```
-
-
-
 ## installation
 
 ### R
