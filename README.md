@@ -1,5 +1,5 @@
-# scIO
-a cross platform data IO software for single cell RNA-seq data
+# scDior
+scDior: Single cell data IO softwaRe
 
 ## Download data
 
