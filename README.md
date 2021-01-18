@@ -84,10 +84,10 @@ myh5.wh5.write_h5(adata=adata, file = './scanpy.h5')
 #### Python: read data from the h5 file
 
 ```Python
-adata_r = myh5.rd5.read_h5(file ='./scanpy.h5')
+adata_r = myh5.rh5.read_h5(file ='./scanpy.h5')
 ```
 
-#### R read data from the h5 file 
+#### R: read data from the h5 file 
 
 ```R
 # read the h5 file for seurat object
