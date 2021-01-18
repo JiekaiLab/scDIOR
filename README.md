@@ -100,9 +100,18 @@ data_sce = read_h5(target.object = 'singlecellexperiment', file = './py_scanpy.h
 
  ## See our tutorial page for more details 
 
-[RIOH5](https://jiekailab.github.io/scIO/sc_data_IO_r.html)
+**Download the data and tutorial** 
 
-[PyIOH5](https://jiekailab.github.io/scIO/sc_data_IO_python.html)
+```shell
+git clone https://github.com/JiekaiLab/JiekaiLab.github.io.git
+cd JiekaiLab.github.io/scDior
+```
+
+**Or see the online tutorial**
+
+[RIOH5](https://jiekailab.github.io/scDior/sc_data_IO_r.html)
+
+[PyIOH5](https://jiekailab.github.io/scDior/sc_data_IO_python.html)
 
 
 
