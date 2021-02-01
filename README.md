@@ -58,7 +58,7 @@ data_sce = read_h5(target.object = 'singlecellexperiment', file = './seurat_r.h5
 import PyIOH5 as myh5
 import scanpy as sc
 # read the h5 file for scanpy object
-data = myh5.rh5.read_h5(file='./seurat_r.h5')
+data = myh5.input.read_h5(file='./seurat_r.h5')
 ```
 
 
@@ -78,13 +78,13 @@ import scanpy as sc
 # read the data from h5ad file
 adata = sc.read( file = './scanpy.h5ad')
 # save the data into the h5 file 
-myh5.wh5.write_h5(adata=adata, file = './py_scanpy.h5')
+myh5.ouput.write_h5(adata=adata, file = './py_scanpy.h5')
 ```
 
 #### Python: read data from the h5 file
 
 ```Python
-adata_r = myh5.rh5.read_h5(file ='./py_scanpy.h5')
+adata_r = myh5.input.read_h5(file ='./py_scanpy.h5')
 ```
 
 #### R: read data from the h5 file 
