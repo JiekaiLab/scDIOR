@@ -1,5 +1,5 @@
-# scDior
-scDior: Single cell data IO softwaRe
+# scDIOR
+scDIOR: Single cell data IO softwaRe
 
 ## installation
 
