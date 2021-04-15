@@ -78,7 +78,7 @@ import scanpy as sc
 # read the data from h5ad file
 adata = sc.read( file = './scanpy.h5ad')
 # save the data into the h5 file 
-myh5.ouput.write_h5(adata=adata, file = './py_scanpy.h5')
+myh5.output.write_h5(adata=adata, file = './py_scanpy.h5')
 ```
 
 #### Python: read data from the h5 file
