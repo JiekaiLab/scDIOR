@@ -13,19 +13,19 @@ devtools::install_github('JiekaiLab/dior')
 
 ### Python
 
+`pip` is recommended
+
 ```shell
-git clone https://github.com/JiekaiLab/diopy.git
-cd diopy
-python setup.py install
+pip install diopy
 ```
 
 
 
 ## Getting started
 
-[RIOH5](https://jiekailab.github.io/scDior/sc_data_IO_r.html)
+[dior](https://jiekailab.github.io/scDior/sc_data_IO_r.html)
 
-[PyIOH5](https://jiekailab.github.io/scDior/sc_data_IO_python.html)
+[diopy](https://jiekailab.github.io/scDior/sc_data_IO_python.html)
 
 
 
