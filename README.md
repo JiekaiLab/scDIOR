@@ -477,7 +477,7 @@ adata
 
 ### scDIOR command line
 
- ScDIOR uses the command line to convert different data by calling `scdior`.  Only the Linux OS is supported currently.
+ ScDIOR uses the command line to convert different data by calling `scdior`.  
 
 `usage: scdior [-h] -i INPUT -o OUTPUT -t TARGET -a ASSAY_NAME`
 
