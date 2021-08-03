@@ -23,18 +23,20 @@ scDIOR: Single cell data IO softwaRe
 
 
 
-## overview
+## Overview
 
 ![overview](Figures/overview.jpg)
 
-## installation
+
+
+## Installation
 
 ### R
 
 ```R
 install.packages('devtools')
 devtools::install_github('JiekaiLab/dior')
-# devtools::install_github('JiekaiLab/dior@HEAD')
+# or devtools::install_github('JiekaiLab/dior@HEAD')
 ```
 
 ### Python
@@ -78,11 +80,9 @@ ___
 
 ____
 
-____
+___
 
-
-
-## scDIOR Fig. 3A example
+## scDIOR A example
 
 ### load the data in Python
 
@@ -100,7 +100,7 @@ adata
 #     obsp: 'distances', 'connectivities'
 ```
 
-### save the data with diopy
+### save the data with diopy in Python
 
 ```Python
 diopy.output.write_h5(adata = adata, 
@@ -166,7 +166,7 @@ plot_cells(cds,
 
 ![trajectory_inference_by_monocle3](Figures/trajectory_inference_by_monocle3.png)
 
-### save the data by dior
+### save the data by dior in R
 
 ```R
 write_h5(data = sce, 
@@ -206,15 +206,15 @@ scv.pl.velocity_embedding_stream(mono,
 
 ![trajectory_inference_by_scvelo](Figures/trajectory_inference_by_scvelo.png)
 
+
+
 ____
 
 ____
 
-____
+___
 
-
-
-## scDIOR Fig. 3B example
+## scDIOR B example
 
 ### load the data in Python
 
@@ -314,7 +314,13 @@ DimPlot(db_combined, reduction = "umap", group.by = c("batch", 'celltype'))
 
 
 
-## scDIOR Fig. 3C example
+___
+
+___
+
+___
+
+## scDIOR C example
 
 ### load the data from [10X Genomics](https://support.10xgenomics.com/spatial-gene-expression/datasets)
 
@@ -362,23 +368,105 @@ sc.pl.spatial(adata, img_key="hires", color=["clusters", "CR2"], save='.spatial_
 
 ![spatail_analysis_by_scanpy](Figures/spatail_analysis_by_scanpy.png)
 
-
-
-
-
-
-
 ### save the data by diopy in Python
 
+```python
+diopy.output.write_h5(adata=adata, 
+                      file='./result/spatial_data_scanpy.h5',
+                      assay_name='spatial')
+```
 
 
 
+### load the data by dior in R
+
+```R
+sp_data = read_h5(file = './result/spatial_data_scanpy.h5', 
+                  assay.name = 'spatial')
+```
+
+plotting
+
+```R
+options(repr.plot.width=8, repr.plot.height=8)
+SpatialDimPlot(sp_data, 
+               label = TRUE, 
+               label.size = 3, 
+               group.by='clusters',  
+               pt.size.factor = 1)
+```
+
+![r_spatial_cluster](Figures/r_spatial_cluster.jpg)
+
+```R
+SpatialFeaturePlot(sp_data, 
+                   features = c('CR2'), 
+                   pt.size.factor = 1)
+```
+
+![r_spatial_gene_cr2](Figures/r_spatial_gene_cr2.jpg)
 
 
 
+### save the data by dior in R
+
+```R
+write_h5(sp_data, 
+         file = './result/spatial_data_scanpy_v2.h5', 
+         assay.name = 'spatial')
+```
+
+load the data by diopy in Python
+
+```python
+ad2 = diopy.input.read_h5(file = './result/spatial_data_scanpy_v2.h5',
+                          assay_name='spatial')
+```
 
 
 
+___
+
+____
+
+____
+
+## scDIOR extended function
+
+### scDIOR read h5ad file
+
+Reading the h5ad file in R. `dior::read_h5ad` function will create a file with `_tmp.h5` suffix.
+
+```R
+bd = read_h5ad(file = './data/data_test_batch.h5ad', 
+               target.object = 'seurat', 
+               assay_name = 'RNA')
+```
+
+### scDIOR read rds file
+
+Reading the rds file in Python. `diopy.input.read_rds` function willl creat a file with `_tmp.h5` suffix.
+
+```python
+mono1 = diopy.input.read_rds(file = './result/r_monocle3_result/sce_trajectory.rds',
+                             object_type='singlecellexperiment',
+                             assay_name='RNA')
+mono1
+# AnnData object with n_obs × n_vars = 3696 × 27998
+#     obs: 'clusters_coarse', 'clusters', 'S_score', 'G2M_score'
+#     var: 'highly_variable_genes'
+#     uns: 'clusters_colors'
+#     obsm: 'X_mono_pca', 'X_mono_umap', 'X_pca', 'X_umap'
+#     layers: 'spliced', 'unspliced'
+```
+
+
+
+### scDIOR command line
+
+
+
+## scDIOR 
 
 [dior](https://jiekailab.github.io/scDior/sc_data_IO_r.html)
 
