@@ -1,7 +1,27 @@
 # scDIOR
 scDIOR: Single cell data IO softwaRe
 
-[toc]
+* [scDIOR](#scdior)
+   * [overview](#overview)
+   * [installation](#installation)
+      * [R](#r)
+      * [Python](#python)
+   * [Getting started](#getting-started)
+   * [scDIOR Fig. 3A example](#scdior-fig-3a-example)
+      * [load the data in Python](#load-the-data-in-python)
+      * [save the data with diopy](#save-the-data-with-diopy)
+      * [Load the data by dior in R](#load-the-data-by-dior-in-r)
+      * [save the data by dior](#save-the-data-by-dior)
+      * [load the cds_trajectory.h5 by diopy in Python](#load-the-cds_trajectoryh5-by-diopy-in-python)
+   * [scDIOR Fig. 3B example](#scdior-fig-3b-example)
+      * [load the data in Python](#load-the-data-in-python-1)
+      * [save the data by diopy in Python](#save-the-data-by-diopy-in-python)
+      * [load the data by dior in R](#load-the-data-by-dior-in-r-1)
+   * [scDIOR Fig. 3C example](#scdior-fig-3c-example)
+      * [load the data from <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets" rel="nofollow">10X Genomics</a>](#load-the-data-from-10x-genomics)
+      * [save the data by diopy in Python](#save-the-data-by-diopy-in-python-1)
+
+
 
 ## overview
 
