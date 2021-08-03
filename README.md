@@ -3,6 +3,10 @@ scDIOR: Single cell data IO softwaRe
 
 [toc]
 
+## overview
+
+![overview](Figures/overview.jpg)
+
 ## installation
 
 ### R
@@ -25,8 +29,10 @@ pip install diopy
 
 ## Getting started
 
+Python 
+
 ```python
-# env/ python
+# ~/.conda/envs/vev1/bin/python
 import scipy
 import scanpy as sc
 import pandas as pd
@@ -35,7 +41,28 @@ import scvelo as scv
 import diopy
 ```
 
+R
 
+```R
+# ~/.conda/envs/vev1/bin/R
+library(Seurat)
+library(SingleCellExperiment)
+library(dior)
+library(monocle3)
+library(ggplot2)
+```
+
+
+
+___
+
+____
+
+____
+
+
+
+## scDIOR Fig. 3A example
 
 ### load the data in Python
 
@@ -53,8 +80,6 @@ adata
 #     obsp: 'distances', 'connectivities'
 ```
 
-
-
 ### save the data with diopy
 
 ```Python
@@ -62,9 +87,7 @@ diopy.output.write_h5(adata = adata,
                       file = '/data1/home/jkchen/hjfeng/Projects/h5/paper_script/result/py_write_h5/data_write_velocity.h5')
 ```
 
-
-
-### Load the data in R
+### Load the data by dior in R
 
 ```R
 sce = read_h5(file= '/data1/home/jkchen/hjfeng/Projects/h5/paper_script/result/py_write_h5/data_write.h5', 
@@ -133,15 +156,15 @@ write_h5(data = sce,
 
 
 
-### load the `cds_trajectory.h5` by diopy inPython
+### load the `cds_trajectory.h5` by diopy in Python
 
-```Python
+```python
 mono = diopy.input.read_h5(file = './result/r_monocle3_result/cds_trajectory.h5')
 ```
 
 1. filter and normalization and 
 
-```Python
+```python
 scv.pp.filter_and_normalize(mono, 
                             min_shared_counts=20, 
                             n_top_genes=2000)
@@ -153,7 +176,7 @@ scv.tl.velocity(mono)
 scv.tl.velocity_graph(mono)
 ```
 
-
+2. fi
 
 ```Python
 scv.pl.velocity_embedding_stream(mono, 
@@ -162,6 +185,174 @@ scv.pl.velocity_embedding_stream(mono,
 ```
 
 ![trajectory_inference_by_scvelo](Figures/trajectory_inference_by_scvelo.png)
+
+____
+
+____
+
+____
+
+
+
+## scDIOR Fig. 3B example
+
+### load the data in Python
+
+```python
+adata_all = sc.read('data/pancreas.h5ad', backup_url='https://www.dropbox.com/s/qj1jlm9w10wmt0u/pancreas.h5ad?dl=1')
+```
+
+1. ploting
+
+```python
+sc.pl.umap(adata_all, 
+           color=['batch', 'celltype'], 
+           palette=sc.pl.palettes.vega_20_scanpy)
+```
+
+![batch_data_in_scanpy](Figures/batch_data_in_scanpy.png)
+
+### save the data by diopy in Python
+
+```python
+diopy.output.write_h5(adata_all, 
+                      file = './result/batch_effect_data.h5', 
+                      save_X=False) # no save adata_all.X because it is the scale data
+```
+
+### load the data by dior in R
+
+```R
+data_batch <- read_h5(file = './result/batch_effect_data.h5',
+                      assay.name = 'RNA', 
+                      target.object = 'seurat')
+
+data_batch@meta.data$batch <- as.character(data_batch@meta.data$batch)
+```
+
+* Batch effect corrected by Seurat protocol. More details are available at [Seurat](https://satijalab.org/seurat/articles/get_started.html)
+
+1. Dataset preprocessing: Splitting the combined object into a list
+
+```R
+db_list <- SplitObject(data_batch, 
+                       split.by = "batch")
+```
+
+2. Dataset preprocessing:  Variable feature selection based on a variance stabilizing transformation (`"vst"`) 
+
+```R
+db_list <- lapply(X = db_list, FUN = function(x) {
+    # x <- NormalizeData(x) 该数据已经是normal数据，不需要进行normal
+    x <- FindVariableFeatures(x, 
+                              selection.method = "vst", 
+                              nfeatures = 2000)
+})
+```
+
+3. 
+
+```R
+features <- SelectIntegrationFeatures(object.list = db_list)
+```
+
+
+
+```R
+db_anchors <- FindIntegrationAnchors(object.list = db_list,
+                                     anchor.features = features)
+```
+
+
+
+```R
+db_combined <- IntegrateData(anchorset = db_anchors)
+```
+
+
+
+```R
+DefaultAssay(db_combined) <- "integrated"
+```
+
+
+
+```R
+db_combined <- ScaleData(db_combined, verbose = FALSE)
+db_combined <- RunPCA(db_combined, npcs = 30, verbose = FALSE)
+db_combined <- RunUMAP(db_combined, reduction = "pca", dims = 1:30)
+```
+
+
+
+```R
+options(repr.plot.width=20, repr.plot.height=8)
+DimPlot(db_combined, reduction = "umap", group.by = c("batch", 'celltype'))
+```
+
+![batch_data_corrected_by_seurat](Figures/batch_data_corrected_by_seurat.jpg)
+
+
+
+## scDIOR Fig. 3C example
+
+### load the data from [10X Genomics](https://support.10xgenomics.com/spatial-gene-expression/datasets)
+
+* Analysis and visualization of spatial transcriptomics data by [scanpy spatail](https://scanpy-tutorials.readthedocs.io/en/latest/spatial/basic-analysis.html)
+
+```python
+adata = sc.read_visium('./data/V1_Human_Lymph_Node')
+adata.var_names_make_unique()
+adata.var["mt"] = adata.var_names.str.startswith("MT-")
+sc.pp.calculate_qc_metrics(adata, qc_vars=["mt"], inplace=True)
+```
+
+
+
+```pyhon
+sc.pp.filter_cells(adata, min_counts=5000)
+sc.pp.filter_cells(adata, max_counts=35000)
+adata = adata[adata.obs["pct_counts_mt"] < 20]
+print(f"#cells after MT filter: {adata.n_obs}")
+sc.pp.filter_genes(adata, min_cells=10)
+```
+
+
+
+```python
+sc.pp.normalize_total(adata, inplace=True)
+sc.pp.log1p(adata)
+sc.pp.highly_variable_genes(adata, flavor="seurat", n_top_genes=2000)
+```
+
+
+
+```python
+sc.pp.pca(adata)
+sc.pp.neighbors(adata)
+sc.tl.umap(adata)
+sc.tl.leiden(adata, key_added="clusters")
+```
+
+
+
+```python
+sc.pl.spatial(adata, img_key="hires", color=["clusters", "CR2"], save='.spatial_py_cluster_gene.png')
+```
+
+![spatail_analysis_by_scanpy](Figures/spatail_analysis_by_scanpy.png)
+
+
+
+
+
+
+
+### save the data by diopy in Python
+
+
+
+
 
 
 
