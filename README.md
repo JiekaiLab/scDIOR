@@ -72,9 +72,7 @@ Here, we list the three specific examples and the extended function to show the 
 
 ___
 
-____
 
-___
 
 ## Example A
 
@@ -218,11 +216,8 @@ scv.pl.velocity_embedding_stream(adata,
 
 
 
-____
-
-____
-
 ___
+
 
 ## Example B
 
@@ -326,13 +321,9 @@ DimPlot(adata_combined, reduction = "umap", group.by = c("batch", 'celltype'))
 
 ![batch_data_corrected_by_seurat](Figures/batch_data_corrected_by_seurat.jpg)
 
-
-
 ___
 
-___
 
-___
 
 ## Example C
 
@@ -452,9 +443,7 @@ adata = diopy.input.read_h5(file = './result/spatial_data_scanpy_v2.h5',
 
 ___
 
-____
 
-____
 
 ## scDIOR extended function
 
@@ -547,6 +536,10 @@ adata
 #     obsm: 'X_pca', 'X_umap'
 #     obsp: 'connectivities', 'distances'
 ```
+
+___
+
+
 
 ## The scripts link of dior and diopy
 
