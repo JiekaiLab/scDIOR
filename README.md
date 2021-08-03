@@ -16,8 +16,7 @@ scDIOR software contains two modules, dior for R and diopy for Python. The data 
 ### R installation
 
 ```R
-# ~/.conda/envs/vev1/bin/R
-
+# in R
 install.packages('devtools')
 devtools::install_github('JiekaiLab/dior')
 # or devtools::install_github('JiekaiLab/dior@HEAD')
@@ -26,7 +25,7 @@ devtools::install_github('JiekaiLab/dior')
 ### R loading packages
 
 ```R
-# ~/.conda/envs/vev1/bin/R
+# in R
 library(Seurat)
 library(SingleCellExperiment)
 library(dior)
@@ -39,13 +38,14 @@ library(ggplot2)
 `pip` is recommended
 
 ```shell
+# in python
 pip install diopy
 ```
 
 ### Python loading packages
 
 ```python
-# ~/.conda/envs/vev1/bin/python
+# in python
 import scipy
 import scanpy as sc
 import pandas as pd
@@ -85,7 +85,7 @@ One can perform trajectory analysis using Monocle3 in R, then transform the sing
 This data is curated by the `scvelo`, loaded by the code:
 
 ```shell
-# ~/.conda/envs/vev1/bin/python
+# in python
 adata = scv.datasets.pancreas()
 adata
 # AnnData object with n_obs × n_vars = 3696 × 27998
@@ -100,7 +100,7 @@ adata
 ### Save the data with `diopy` in `Python`
 
 ```Python
-# ~/.conda/envs/vev1/bin/python
+# in python
 diopy.output.write_h5(adata = adata, 
                       file = './result/py_write_h5/data_write_velocity.h5')
 ```
@@ -108,7 +108,7 @@ diopy.output.write_h5(adata = adata,
 ### Load the data with`dior` in `R`
 
 ```R
-# ~/.conda/envs/vev1/bin/R
+# in R 
 sce <- read_h5(file= '.result/py_write_h5/data_write.h5', 
               target.object = 'singlecellexperiment')
 cds  <- new_cell_data_set(sce@assays@data@listData$X,
@@ -121,7 +121,7 @@ cds  <- new_cell_data_set(sce@assays@data@listData$X,
 1. Pre-process the data
 
 ```R
-# ~/.conda/envs/vev1/bin/R
+# in R 
 cds <- preprocess_cds(cds, 
                       num_dim = 50)
 ```
@@ -129,14 +129,14 @@ cds <- preprocess_cds(cds,
 2.  Dimensionality reduction 
 
 ```R
-# ~/.conda/envs/vev1/bin/R
+# in R 
 cds <- reduce_dimension(cds)
 ```
 
 3. Clustering  the cells 
 
 ```R
-# ~/.conda/envs/vev1/bin/R
+# in R 
 cds <- cluster_cells(cds, 
                      cluster_method= 'leiden')
 ```
@@ -144,7 +144,7 @@ cds <- cluster_cells(cds,
 4. Learning the trajectory graph and visualization
 
 ```R
-# ~/.conda/envs/vev1/bin/R
+# in R 
 cds <- learn_graph(cds)
 plot_cells(cds,
            color_cells_by = "clusters",
@@ -161,16 +161,16 @@ plot_cells(cds,
 5. Adding the Dimension
 
 ```R
-# ~/.conda/envs/vev1/bin/R
+# in R 
 reducedDim(sce,'PCA') <- reducedDim(cds, 'PCA')
 reducedDim(sce,'UMAP') <- reducedDim(cds, 'UMAP')
-reducedDimNames(sce)<- c('pca','umap','mono_PCA','mono_UMAP')
+reducedDimNames(sce)<- c('pca','umap','monocle_PCA','monocle_UMAP')
 ```
 
 ### Save the data with`dior` in `R`
 
 ```R
-# ~/.conda/envs/vev1/bin/R
+# in R 
 write_h5(data = sce, 
          file = './result/r_monocle3_result/cds_trajectory.h5', 
          assay.name = 'RNA' ,
@@ -180,8 +180,8 @@ write_h5(data = sce,
 ### Load the `cds_trajectory.h5` with `diopy` in `Python`
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
-mono = diopy.input.read_h5(file = './result/r_monocle3_result/cds_trajectory.h5')
+# in python 
+adata = diopy.input.read_h5(file = './result/r_monocle3_result/cds_trajectory.h5')
 ```
 
 * RNA Velocity analysis. More details are available at [scvelo](https://scvelo.readthedocs.io/VelocityBasics/)
@@ -189,11 +189,11 @@ mono = diopy.input.read_h5(file = './result/r_monocle3_result/cds_trajectory.h5'
 1. Preprocess the Data
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
-scv.pp.filter_and_normalize(mono, 
+# in python 
+scv.pp.filter_and_normalize(adata, 
                             min_shared_counts=20, 
                             n_top_genes=2000)
-scv.pp.moments(mono, 
+scv.pp.moments(adata, 
                n_pcs=30, 
                n_neighbors=30)
 ```
@@ -201,18 +201,17 @@ scv.pp.moments(mono,
 2. Estimate RNA velocity
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
-scv.tl.velocity(mono)
-scv.tl.velocity_graph(mono)
+# in python 
+scv.tl.velocity(adata)
+scv.tl.velocity_graph(adata)
 ```
 
 3. Project the velocities
 
 ```Python
-# ~/.conda/envs/vev1/bin/Python
-scv.pl.velocity_embedding_stream(mono, 
-                                 basis='mono_umap',
-                                 save='.scvelo_trajectory.png')
+# in python 
+scv.pl.velocity_embedding_stream(adata, 
+                                 basis='monocle_UMAP')
 ```
 
 ![trajectory_inference_by_scvelo](Figures/trajectory_inference_by_scvelo.png)
@@ -234,16 +233,16 @@ One can employ single-cell data preprocess and normalization method provided by 
 The data is curated by `scanpy`, loaded by the code:
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
-adata_all = sc.read('data/pancreas.h5ad',
-                    backup_url='https://www.dropbox.com/s/qj1jlm9w10wmt0u/pancreas.h5ad?dl=1')
+# in python 
+adata = sc.read('data/pancreas.h5ad',
+                backup_url='https://www.dropbox.com/s/qj1jlm9w10wmt0u/pancreas.h5ad?dl=1')
 ```
 
 1. Visualization
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
-sc.pl.umap(adata_all, 
+# in python 
+sc.pl.umap(adata, 
            color=['batch', 'celltype'], 
            palette=sc.pl.palettes.vega_20_scanpy)
 ```
@@ -253,8 +252,8 @@ sc.pl.umap(adata_all,
 ### Save the data by `diopy` in `Python`
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
-diopy.output.write_h5(adata_all, 
+# in python 
+diopy.output.write_h5(adata, 
                       file = './result/batch_effect_data.h5', 
                       save_X=False) # Select not to save adata_all.X, because that's scale data,
 ```
@@ -262,12 +261,11 @@ diopy.output.write_h5(adata_all,
 ### Load the data by `dior` in `R`
 
 ```R
-# ~/.conda/envs/vev1/bin/R
-data_batch <- read_h5(file = './result/batch_effect_data.h5',
-                      assay.name = 'RNA', 
-                      target.object = 'seurat')
-
-data_batch@meta.data$batch <- as.character(data_batch@meta.data$batch)
+# in R
+adata <- read_h5(file = './result/batch_effect_data.h5',
+                 assay.name = 'RNA', 
+                 target.object = 'seurat')
+adata@meta.data$batch <- as.character(adata@meta.data$batch)
 ```
 
 * Batch effect corrected by Seurat protocol. More details are available at [Seurat](https://satijalab.org/seurat/articles/get_started.html)
@@ -275,16 +273,16 @@ data_batch@meta.data$batch <- as.character(data_batch@meta.data$batch)
 1. Dataset preprocessing: Splitting the combined object into a list
 
 ```R
-# ~/.conda/envs/vev1/bin/R
-db_list <- SplitObject(data_batch, 
-                       split.by = "batch")
+# in R
+adata_list <- SplitObject(adata, 
+                          split.by = "batch")
 ```
 
 2. Dataset preprocessing:  Variable feature selection based on a variance stabilizing transformation (`"vst"`) 
 
 ```R
-# ~/.conda/envs/vev1/bin/R
-db_list <- lapply(X = db_list, FUN = function(x) {
+# in R
+adata_list <- lapply(X = adata_list, FUN = function(x) {
     # x <- NormalizeData(x) The data is normal data and does not need to be normalized
     x <- FindVariableFeatures(x, 
                               selection.method = "vst", 
@@ -295,35 +293,35 @@ db_list <- lapply(X = db_list, FUN = function(x) {
 3. Select integration features
 
 ```R
-# ~/.conda/envs/vev1/bin/R
-features <- SelectIntegrationFeatures(object.list = db_list)
+# in R
+features <- SelectIntegrationFeatures(object.list = adata_list)
 ```
 
 4. Integration of cell datasets
 
 ```R
-# ~/.conda/envs/vev1/bin/R
-db_anchors <- FindIntegrationAnchors(object.list = db_list,
+# in R
+adata_anchors <- FindIntegrationAnchors(object.list = adata_list,
                                      anchor.features = features)
-db_combined <- IntegrateData(anchorset = db_anchors)
+adata_combined <- IntegrateData(anchorset = adata_anchors)
 ```
 
 5.  Downstream analysis for Integration data
 
 ```R
-# ~/.conda/envs/vev1/bin/R
-DefaultAssay(db_combined) <- "integrated"
-db_combined <- ScaleData(db_combined, verbose = FALSE)
-db_combined <- RunPCA(db_combined, npcs = 30, verbose = FALSE)
-db_combined <- RunUMAP(db_combined, reduction = "pca", dims = 1:30)
+# in R
+DefaultAssay(adata_combined) <- "integrated"
+adata_combined <- ScaleData(adata_combined, verbose = FALSE)
+adata_combined <- RunPCA(adata_combined, npcs = 30, verbose = FALSE)
+adata_combined <- RunUMAP(adata_combined, reduction = "pca", dims = 1:30)
 ```
 
 6.  Visualization 
 
 ```R
-# ~/.conda/envs/vev1/bin/R
+# in R 
 options(repr.plot.width=20, repr.plot.height=8)
-DimPlot(db_combined, reduction = "umap", group.by = c("batch", 'celltype'))
+DimPlot(adata_combined, reduction = "umap", group.by = c("batch", 'celltype'))
 ```
 
 ![batch_data_corrected_by_seurat](Figures/batch_data_corrected_by_seurat.jpg)
@@ -347,7 +345,7 @@ Downloading the spatial data set from [10X Genomics Spatial Datasets](https://su
 1. Reading the data
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
+# in python
 adata = sc.read_visium('./data/V1_Human_Lymph_Node')
 adata.var_names_make_unique()
 adata.var["mt"] = adata.var_names.str.startswith("MT-")
@@ -357,7 +355,7 @@ sc.pp.calculate_qc_metrics(adata, qc_vars=["mt"], inplace=True)
 2. QC and preprocessing
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
+# in python
 sc.pp.filter_cells(adata, min_counts=5000)
 sc.pp.filter_cells(adata, max_counts=35000)
 adata = adata[adata.obs["pct_counts_mt"] < 20]
@@ -368,7 +366,7 @@ sc.pp.filter_genes(adata, min_cells=10)
 3.  Normalize Visium counts data 
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
+# in python
 sc.pp.normalize_total(adata, inplace=True)
 sc.pp.log1p(adata)
 sc.pp.highly_variable_genes(adata, flavor="seurat", n_top_genes=2000)
@@ -377,7 +375,7 @@ sc.pp.highly_variable_genes(adata, flavor="seurat", n_top_genes=2000)
 4. Manifold embedding and clustering 
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
+# in python
 sc.pp.pca(adata)
 sc.pp.neighbors(adata)
 sc.tl.umap(adata)
@@ -387,7 +385,7 @@ sc.tl.leiden(adata, key_added="clusters")
 5. Visualization in spatial coordinates
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
+# in python
 sc.pl.spatial(adata, img_key="hires", color=["clusters", "CR2"], save='.spatial_py_cluster_gene.png')
 ```
 
@@ -396,7 +394,7 @@ sc.pl.spatial(adata, img_key="hires", color=["clusters", "CR2"], save='.spatial_
 ### Save the data by `diopy` in `Python`
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
+# in python
 diopy.output.write_h5(adata=adata, 
                       file='./result/spatial_data_scanpy.h5',
                       assay_name='spatial')
@@ -405,17 +403,17 @@ diopy.output.write_h5(adata=adata,
 ### Load the data by `dior` in `R`
 
 ```R
-# ~/.conda/envs/vev1/bin/R
-sp_data = read_h5(file = './result/spatial_data_scanpy.h5', 
-                  assay.name = 'spatial')
+# in R
+adata = read_h5(file = './result/spatial_data_scanpy.h5', 
+                assay.name = 'spatial')
 ```
 
 1. Visualization in spatial coordinates
 
 ```R
-# ~/.conda/envs/vev1/bin/R
+# in R
 options(repr.plot.width=8, repr.plot.height=8)
-SpatialDimPlot(sp_data, 
+SpatialDimPlot(adata, 
                label = TRUE, 
                label.size = 3, 
                group.by='clusters',  
@@ -425,8 +423,8 @@ SpatialDimPlot(sp_data,
 ![r_spatial_cluster](Figures/r_spatial_cluster.jpg)
 
 ```R
-# ~/.conda/envs/vev1/bin/Python
-SpatialFeaturePlot(sp_data, 
+# in R
+SpatialFeaturePlot(adata, 
                    features = c('CR2'), 
                    pt.size.factor = 1)
 ```
@@ -438,8 +436,8 @@ SpatialFeaturePlot(sp_data,
 ### Save the data by `dior` in `R`
 
 ```R
-# ~/.conda/envs/vev1/bin/Python
-write_h5(sp_data, 
+# in R
+write_h5(adata, 
          file = './result/spatial_data_scanpy_v2.h5', 
          assay.name = 'spatial')
 ```
@@ -447,9 +445,9 @@ write_h5(sp_data,
 load the data by diopy in Python
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
-sp_data = diopy.input.read_h5(file = './result/spatial_data_scanpy_v2.h5',
-                              assay_name='spatial')
+# in python
+adata = diopy.input.read_h5(file = './result/spatial_data_scanpy_v2.h5',
+                            assay_name='spatial')
 ```
 
 ___
@@ -466,21 +464,21 @@ Reading the h5ad file in R. `dior::read_h5ad` function will create a file with `
 
 ```R
 # ~/.conda/envs/vev1/bin/R
-bd = read_h5ad(file = './data/data_test_batch.h5ad', 
-               target.object = 'seurat', 
-               assay_name = 'RNA')
+adata = read_h5ad(file = './data/data_test_batch.h5ad', 
+                  target.object = 'seurat', 
+                  assay_name = 'RNA')
 ```
 
 ### scDIOR read rds file
 
-Reading the rds file in Python. `diopy.input.read_rds` function willl creat a file with `_tmp.h5` suffix.
+Reading the rds file in Python. `diopy.input.read_rds` function will create a file with `_tmp.h5` suffix.
 
 ```python
-# ~/.conda/envs/vev1/bin/Python
-mono = diopy.input.read_rds(file = './result/r_monocle3_result/sce_trajectory.rds',
+# in python
+adata = diopy.input.read_rds(file = './result/r_monocle3_result/sce_trajectory.rds',
                              object_type='singlecellexperiment',
                              assay_name='RNA')
-mono
+adata
 # AnnData object with n_obs × n_vars = 3696 × 27998
 #     obs: 'clusters_coarse', 'clusters', 'S_score', 'G2M_score'
 #     var: 'highly_variable_genes'
@@ -505,69 +503,50 @@ mono
 
 * Example scdior convert the h5ad to the rds
 
-  ```shell
-  # linux system
-  $ scdior -i ./data_test_batch.h5ad -o ./data_test_batch.rds -t seurat -a RNA
-  # ...loading the h5ad file...
-  # Warning: No columnames present in cell embeddings, setting to 'PCA_1:50'
-  # Warning: No columnames present in cell embeddings, setting to 'UMAP_1:2'
-  # Warning: Feature names cannot have underscores ('_'), replacing with dashes ('-')
-  
-  # ...saving the rds file...
-  # ...complete....
-  
-  $ R
-  # R version 4.0.5 (2021-03-31) -- "Shake and Throw"
-  # Copyright (C) 2021 The R Foundation for Statistical Computing
-  # Platform: x86_64-conda-linux-gnu (64-bit)
-  
-  # R is free software and comes with ABSOLUTELY NO WARRANTY.
-  # You are welcome to redistribute it under certain conditions.
-  # Type 'license()' or 'licence()' for distribution details.
-  
-  #   Natural language support but running in an English locale
-  
-  # R is a collaborative project with many contributors.
-  # Type 'contributors()' for more information and
-  # 'citation()' on how to cite R or R packages in publications.
-  
-  # Type 'demo()' for some demos, 'help()' for on-line help, or
-  # 'help.start()' for an HTML browser interface to help.
-  # Type 'q()' to quit R.
-  > library(Seurat)
-  # Attaching SeuratObject
-  > data <- readRDS('./data_test_batch.rds')
-  > data
-  # An object of class Seurat
-  # 24516 features across 14693 samples within 1 assay
-  # Active assay: RNA (24516 features, 0 variable features)
-  #  2 dimensional reductions calculated: pca, umap
-  ```
+```shell
+# in shell
+$ scdior -i ./data_test_batch.h5ad -o ./data_test_batch.rds -t seurat -a RNA
+# ...loading the h5ad file...
+# Warning: No columnames present in cell embeddings, setting to 'PCA_1:50'
+# Warning: No columnames present in cell embeddings, setting to 'UMAP_1:2'
+# Warning: Feature names cannot have underscores ('_'), replacing with dashes ('-')
+
+# ...saving the rds file...
+# ...complete....
+```
+
+```R
+# in R
+library(Seurat)
+adata <- readRDS('./data_test_batch.rds')
+adata
+# An object of class Seurat
+# 24516 features across 14693 samples within 1 assay
+# Active assay: RNA (24516 features, 0 variable features)
+#  2 dimensional reductions calculated: pca, umap
+```
 
 * Example scdior convert the rds to the h5ad
 
-  ```shell
-  # linux system
-  $ scdior -i ./data_test_batch.rds -o ./data_test_batch.h5ad -t seurat -a RNA
-  # ...loading the rds file...
-  # ...saving the h5ad file...
-  # ...complete....
-  
-  $ python
-  # Python 3.8.10 (default, May 19 2021, 18:05:58)
-  # [GCC 7.3.0] :: Anaconda, Inc. on linux
-  # Type "help", "copyright", "credits" or "license" for more information.
-  >>> import scanpy as sc
-  >>> data = sc.read('./data_test_batch.h5ad')
-  >>> data
-  # AnnData object with n_obs × n_vars = 14693 × 24516
-  #     obs: 'celltype', 'sample', 'n_genes', 'batch', 'n_counts', 'louvain'
-  #     var: 'n_cells-0', 'n_cells-1', 'n_cells-2', 'n_cells-3'
-  #     obsm: 'X_pca', 'X_umap'
-  #     obsp: 'connectivities', 'distances'
-  ```
+```shell
+# in shell
+$ scdior -i ./data_test_batch.rds -o ./data_test_batch.h5ad -t seurat -a RNA
+# ...loading the rds file...
+# ...saving the h5ad file...
+# ...complete....
+```
 
-
+```python
+# in python
+import scanpy as sc
+adata = sc.read('./data_test_batch.h5ad')
+adata
+# AnnData object with n_obs × n_vars = 14693 × 24516
+#     obs: 'celltype', 'sample', 'n_genes', 'batch', 'n_counts', 'louvain'
+#     var: 'n_cells-0', 'n_cells-1', 'n_cells-2', 'n_cells-3'
+#     obsm: 'X_pca', 'X_umap'
+#     obsp: 'connectivities', 'distances'
+```
 
 ## The scripts link of dior and diopy
 
