@@ -3,6 +3,37 @@ scDIOR: Single cell data IO softwaRe
 
 
 
+* [scDIOR](#scdior)
+   * [Overview](#overview)
+   * [Preparation](#preparation)
+      * [R installation](#r-installation)
+      * [R loading packages](#r-loading-packages)
+      * [Python installation](#python-installation)
+      * [Python loading packages](#python-loading-packages)
+   * [Getting started](#getting-started)
+   * [Example A](#example-a)
+      * [Load the data withscvelo in Python](#load-the-data-withscvelo-in-python)
+      * [Save the data with diopy in Python](#save-the-data-with-diopy-in-python)
+      * [Load the data withdior in R](#load-the-data-withdior-in-r)
+      * [Save the data withdior in R](#save-the-data-withdior-in-r)
+      * [Load the cds_trajectory.h5 with diopy in Python](#load-the-cds_trajectoryh5-with-diopy-in-python)
+   * [Example B](#example-b)
+      * [Load the data with diopyin Python](#load-the-data-with-diopyin-python)
+      * [Save the data by diopy in Python](#save-the-data-by-diopy-in-python)
+      * [Load the data by dior in R](#load-the-data-by-dior-in-r)
+   * [Example C](#example-c)
+      * [Load the data from 10X Genomics Spatial Datasets](#load-the-data-from-10x-genomics-spatial-datasets)
+      * [Save the data by diopy in Python](#save-the-data-by-diopy-in-python-1)
+      * [Load the data by dior in R](#load-the-data-by-dior-in-r-1)
+      * [Save the data by dior in R](#save-the-data-by-dior-in-r)
+   * [scDIOR extended function](#scdior-extended-function)
+      * [scDIOR read h5ad file](#scdior-read-h5ad-file)
+      * [scDIOR read rds file](#scdior-read-rds-file)
+      * [scDIOR command line](#scdior-command-line)
+   * [The scripts link of dior and diopy](#the-scripts-link-of-dior-and-diopy)
+
+
+
 ## Overview
 
 scDIOR software contains two modules, dior for R and diopy for Python. The data transformation was implemented by a ‘.h5’ file of [HDF5](https://www.hdfgroup.org/) format, which harmonizes the different data types between R and Python. The different aspects of single-cell information were stored in HDF5 group with dataset. scDIOR creates 8 HDF5 groups to store core single-cell information, including data, layers, obs, var, dimR, graphs, uns and spatial.   
