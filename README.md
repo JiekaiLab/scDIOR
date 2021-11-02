@@ -1,50 +1,87 @@
 # scDIOR
 scDIOR: Single cell data IO softwaRe
 
+<br>
+
+## Directory
+
+* [scDIOR](#scDIOR)
+   * [Overview](#[Overview](#Directory))
+   * [Preparation](#[Preparation](#Directory))
+      * [Operating Environment]
+   * [Getting started](#[Getting started](#Directory))
+      * [Starting environment (for docker image)]
+      * [R loading packages]
+      * [Python loading packages]
+   * [Example A](#[Example A](#Directory))
+      * [Loading data with `scvelo` in `Python`]
+      * [Saving data with `diopy` in `Python`]
+      * [Loading data with`dior` in `R`]
+      * [Saving data with`dior` in `R`]
+      * [Loading `cds_trajectory.h5` with `diopy` in `Python`]
+   * [Example B](#[Example B](#Directory))
+      * [Loading data with `diopy`in `Python`]
+      * [Saving data with `diopy` in `Python`]
+      * [Load the data by dior in R]
+   * [Example C](#[Example C](#Directory))
+      * [Load the data from 10X Genomics Spatial Datasets]
+      * [Save the data by diopy in Python]
+      * [Load the data by dior in R]
+      * [Save the data by dior in R]
+   * [scDIOR extended function](#[scDIOR extended function](#Directory))
+      * [scDIOR read h5ad file]
+      * [scDIOR read rds file]
+      * [scDIOR command line]
+   * [The scripts link of dior and diopy](#[The scripts link of dior and diopy](#Directory))
+   * [Reference websites](#[Reference websites](#Directory))
+
+<br>
 
 
-* [scDIOR](#scdior)
-   * [Overview](#overview)
-   * [Preparation](#preparation)
-      * [R installation](#r-installation)
-      * [R loading packages](#r-loading-packages)
-      * [Python installation](#python-installation)
-      * [Python loading packages](#python-loading-packages)
-   * [Getting started](#getting-started)
-   * [Example A](#example-a)
-      * [Load the data withscvelo in Python](#load-the-data-withscvelo-in-python)
-      * [Save the data with diopy in Python](#save-the-data-with-diopy-in-python)
-      * [Load the data withdior in R](#load-the-data-withdior-in-r)
-      * [Save the data withdior in R](#save-the-data-withdior-in-r)
-      * [Load the cds_trajectory.h5 with diopy in Python](#load-the-cds_trajectoryh5-with-diopy-in-python)
-   * [Example B](#example-b)
-      * [Load the data with diopyin Python](#load-the-data-with-diopyin-python)
-      * [Save the data by diopy in Python](#save-the-data-by-diopy-in-python)
-      * [Load the data by dior in R](#load-the-data-by-dior-in-r)
-   * [Example C](#example-c)
-      * [Load the data from 10X Genomics Spatial Datasets](#load-the-data-from-10x-genomics-spatial-datasets)
-      * [Save the data by diopy in Python](#save-the-data-by-diopy-in-python-1)
-      * [Load the data by dior in R](#load-the-data-by-dior-in-r-1)
-      * [Save the data by dior in R](#save-the-data-by-dior-in-r)
-   * [scDIOR extended function](#scdior-extended-function)
-      * [scDIOR read h5ad file](#scdior-read-h5ad-file)
-      * [scDIOR read rds file](#scdior-read-rds-file)
-      * [scDIOR command line](#scdior-command-line)
-   * [The scripts link of dior and diopy](#the-scripts-link-of-dior-and-diopy)
 
+## [Overview](#Directory)
 
-
-## Overview
-
-scDIOR software contains two modules, dior for R and diopy for Python. The data transformation was implemented by a ‘.h5’ file of [HDF5](https://www.hdfgroup.org/) format, which harmonizes the different data types between R and Python. The different aspects of single-cell information were stored in HDF5 group with dataset. scDIOR creates 8 HDF5 groups to store core single-cell information, including data, layers, obs, var, dimR, graphs, uns and spatial.   
+scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. The data transformation was implemented by a ‘.h5’ file of [HDF5](https://www.hdfgroup.org/) format, which harmonizes the different data types between R and Python. The different aspects of single-cell information were stored in HDF5 group with dataset. scDIOR creates 8 HDF5 groups to store core single-cell information, including data, layers, obs, var, dimR, graphs, uns and spatial.   
 
 ![overview](Figures/overview.jpg)
 
+<br>
 
+## [Preparation](#Directory)
 
-## Preparation
+### Operating Environment
 
-### R installation
+**1. Docker image (recommended) :**
+
+It is recommend to perform scDIOR in docker image, which ensures that the operating environment remains stable. scDIOR image is already available for download at Docker Hub, [click here](da).  
+
+Building scDIOR image:
+
+1. we first built the basic jupyter image which based on [jupyter/base-notebook](https://github.com/jupyter/docker-stacks) (jupyter managing Python and R) and [fixuid](https://github.com/boxboat/fixuid) (fixing user/group mapping issues in containers). This basic image is already available for download at Docker Hub, click here.
+2.  Based on our customized basic image, we construct scDior image again by Dockerfile. For the content of Dockerfile, please check the file under the dockerfile.
+
+The current latest image contains the following main analysis platforms and software: 
+
+| R                    | version | Python  | version |
+| :------------------- | ------- | ------- | ------- |
+| R                    | 4.0.5   | Python  | 3.8.8   |
+| Seurat               | 4.0.2   | Scanpy  | 1.7.2   |
+| SingleCellExperiment | 1.12.0  | scvelo  | 0.2.3   |
+| monocle3             | 1.0.0   | anndata | 0.7.6   |
+| dior                 | 0.1.4   | diopy   | 0.5.0   |
+|                      |         |         |         |
+|                      |         |         |         |
+|                      |         |         |         |
+
+**2. conda environment (not recommended) :**
+
+The conda environment is changeable without Docker image, so it is not recommended to install the package in this way. The R and Python environments was built by conda, then dior and diopy are installed in R and Python respectively. 
+
+```shell
+conda create -n conda_env python=3.8 R=4.0
+```
+
+1. R installation:
 
 ```R
 # in R
@@ -53,41 +90,18 @@ devtools::install_github('JiekaiLab/dior')
 # or devtools::install_github('JiekaiLab/dior@HEAD')
 ```
 
-### R loading packages
-
-```R
-# in R
-library(Seurat)
-library(SingleCellExperiment)
-library(dior)
-library(monocle3)
-library(ggplot2)
-```
-
-### Python installation
-
-`pip` is recommended
+2. Python installation:
 
 ```shell
 # in python
 pip install diopy
 ```
 
-### Python loading packages
+____
 
-```python
-# in python
-import scipy
-import scanpy as sc
-import pandas as pd
-import numpy as np
-import scvelo as scv
-import diopy
-```
+<br>
 
-
-
-## Getting started
+## [Getting started](#Directory)
 
 Here, we list the three specific examples and the extended function to show the powerful performance of scDIOR.
 
@@ -101,15 +115,110 @@ Here, we list the three specific examples and the extended function to show the 
   2. the function to load ‘.h5ad’ file in R directly;
   3. command line  
 
+<br>
+
+### Starting environment (for docker image)
+
+1. **Remote server **
+
+   1. Logining server through `ssh L`
+
+   ```shell
+   ssh -L localhost:port1:localhost:port2 user@remote_ip
+   # port1: local port
+   # prot2: remote port
+   # user: remote sever user id
+   # remote_ip: remote severip
+   ```
+
+   2. Starting container of scDIOR image
+
+   ```shell
+   IMG=hjfeng/scdior_image:1.2 # 1. 指定使用的镜像
+   PORT=port2 # port2
+   PROJECT=scdior
+   MEMORY=64g 
+   CWD=$(docker inspect $IMG | grep WorkingDir | head -n 1 | sed 's/.* "//;s/"//g;s/,//g') 
+   docker run -p $PORT:8888 \
+           --name $PROJECT \
+           -m $MEMORY \
+           -u $(id -u):$(id -g) \
+           -e JUPYTER_ENABLE_LAB=yes \
+           -e JUPYTER_TOKEN=1234 \
+           -v $PWD:$CWD \
+           --rm \
+           -it $IMG
+   ```
+
+   3. Starting jupyter in user's  browser 
+
+   ```shell
+   localhost:port1
+   ```
+
+2. **Local computer**
+
+   1. Staring the container of scDIOR image
+
+   ```shell
+   IMG=hjfeng/scdior_image:1.2 # 1. 指定使用的镜像
+   PORT=port1# port2
+   PROJECT=scdior
+   MEMORY=64g 
+   CWD=$(docker inspect $IMG | grep WorkingDir | head -n 1 | sed 's/.* "//;s/"//g;s/,//g') 
+   docker run -p $PORT:8888 \
+           --name $PROJECT \
+           -m $MEMORY \
+           -u $(id -u):$(id -g) \
+           -e JUPYTER_ENABLE_LAB=yes \
+           -e JUPYTER_TOKEN=1234 \
+           -v $PWD:$CWD \
+           --rm \
+           -it $IMG
+   ```
+
+   2. Starting jupyter in user's  browser 
+
+   ```shell
+   localhost:port1
+   ```
+
+<br>
+
+### R loading packages
+
+```R
+# in R
+library(Seurat)
+library(SingleCellExperiment)
+library(dior)
+library(monocle3)
+library(ggplot2)
+```
+
+<br>
+
+### Python loading packages
+
+```python
+# in python
+import scipy
+import scanpy as sc
+import pandas as pd
+import numpy as np
+import scvelo as scv
+import diopy
+```
+
 ___
 
 <br>
 
-## Example A
+## [Example A](#Directory)
 
 One can perform trajectory analysis using Monocle3 in R, then transform the single-cell data to Scanpy in Python using scDIOR, such as expression profiles of spliced and unspliced, as well as cell layout. The expression profile can be used to run dynamical RNA velocity analysis and results can be projected on the layout of Monocle3.
 
-### Load the data with`scvelo` in `Python`
+### Loading data with `scvelo` in `Python`
 
 This data is curated by the `scvelo`, loaded by the code:
 
@@ -126,7 +235,7 @@ adata
 #     obsp: 'distances', 'connectivities'
 ```
 
-### Save the data with `diopy` in `Python`
+### Saving data with `diopy` in `Python`
 
 ```Python
 # in python
@@ -134,7 +243,7 @@ diopy.output.write_h5(adata = adata,
                       file = './result/py_write_h5/data_write_velocity.h5')
 ```
 
-### Load the data with`dior` in `R`
+### Loading data with`dior` in `R`
 
 ```R
 # in R 
@@ -196,7 +305,7 @@ reducedDim(sce,'UMAP') <- reducedDim(cds, 'UMAP')
 reducedDimNames(sce)<- c('pca','umap','monocle_PCA','monocle_UMAP')
 ```
 
-### Save the data with`dior` in `R`
+### Saving data with`dior` in `R`
 
 ```R
 # in R 
@@ -206,7 +315,7 @@ write_h5(data = sce,
          object.type = 'singlecellexperiment')
 ```
 
-### Load the `cds_trajectory.h5` with `diopy` in `Python`
+### Loading `cds_trajectory.h5` with `diopy` in `Python`
 
 ```python
 # in python 
@@ -249,11 +358,11 @@ ___
 
 <br>
 
-## Example B
+## [Example B](#Directory)
 
 One can employ single-cell data preprocess and normalization method provided by Scanpy, and utilize batches correction method provided by Seurat.
 
-### Load the data with `diopy`in `Python`
+### Loading data with `diopy`in `Python`
 
 The data is curated by `scanpy`, loaded by the code:
 
@@ -274,7 +383,7 @@ sc.pl.umap(adata,
 
 ![batch_data_in_scanpy](Figures/batch_data_in_scanpy.png)
 
-### Save the data by `diopy` in `Python`
+### Saving data with `diopy` in `Python`
 
 ```python
 # in python 
@@ -283,7 +392,7 @@ diopy.output.write_h5(adata,
                       save_X=False) # Select not to save adata_all.X, because that's scale data,
 ```
 
-### Load the data by `dior` in `R`
+### Loading data with `dior` in `R`
 
 ```R
 # in R
@@ -355,13 +464,13 @@ ___
 
 <br>
 
-## Example C
+## [Example C](#Directory)
 
-### Load the data from 10X Genomics Spatial Datasets
+### Loading data from 10X Genomics Spatial Datasets
 
 Downloading the spatial data set from [10X Genomics Spatial Datasets](https://support.10xgenomics.com/spatial-gene-expression/datasets)
 
-* Analysis and visualization of spatial transcriptomics data by [scanpy spatail](https://scanpy-tutorials.readthedocs.io/en/latest/spatial/basic-analysis.html)
+* Analysis and visualization of spatial transcriptomics data by [scanpy spatial](https://scanpy-tutorials.readthedocs.io/en/latest/spatial/basic-analysis.html)
 
 1. Reading the data
 
@@ -412,7 +521,7 @@ sc.pl.spatial(adata, img_key="hires", color=["clusters", "CR2"], save='.spatial_
 
 ![spatail_analysis_by_scanpy](Figures/spatail_analysis_by_scanpy.png)
 
-### Save the data by `diopy` in `Python`
+### Saving data with`diopy` in `Python`
 
 ```python
 # in python
@@ -421,7 +530,7 @@ diopy.output.write_h5(adata=adata,
                       assay_name='spatial')
 ```
 
-### Load the data by `dior` in `R`
+### Loading data with `dior` in `R`
 
 ```R
 # in R
@@ -454,7 +563,7 @@ SpatialFeaturePlot(adata,
 
 
 
-### Save the data by `dior` in `R`
+### Saving data with `dior` in `R`
 
 ```R
 # in R
@@ -475,7 +584,7 @@ ___
 
 <br>
 
-## scDIOR extended function
+## [scDIOR extended function](#Directory)
 
 ### scDIOR read h5ad file
 
@@ -571,5 +680,17 @@ ___
 
 <br>
 
-## The scripts link of dior and diopy
 
+
+## [The scripts link of dior and diopy](#Directory)
+
+
+## [Reference websites](#Directory)
+
+1. jupyter docker stacks: 
+   1. https://github.com/jupyter/docker-stacks
+   2. https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html
+2. fixuid: https://github.com/boxboat/fixuid
+3. Seurat: https://satijalab.org/seurat/index.html
+4. Scanpy: https://scanpy.readthedocs.io/en/stable/index.html
+5. Scvelo: https://scanpy.readthedocs.io/en/stable/index.html
