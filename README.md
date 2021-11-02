@@ -3,59 +3,57 @@ scDIOR: Single cell data IO softwaRe
 
 <br>
 
-## Directory
+<h2 id="0">
+    Directory
+</h2>
 
-* [scDIOR]
+* scDIOR
    * [Overview](#1)
    * [Preparation](#2)
       * [Operating Environment](#2.1)
-   * [Getting started]
-      * [Starting environment (for docker image)]
-      * [R loading packages]
-      * [Python loading packages]
-   * [Example A]
-      * [Loading data with `scvelo` in `Python`]
-      * [Saving data with `diopy` in `Python`]
-      * [Loading data with`dior` in `R`]
-      * [Saving data with`dior` in `R`]
-      * [Loading `cds_trajectory.h5` with `diopy` in `Python`]
-   * [Example B]
-      * [Loading data with `diopy`in `Python`]
-      * [Saving data with `diopy` in `Python`]
-      * [Loading data with`dior` in `R`]
-   * [Example C]
-      * [Loading data from 10X Genomics Spatial Datasets]
-      * [Saving data by `diopy` in `Python`]
-      * [Loading data by `dior` in `R`]
-      * [Saving data by `dior` in `R`]
-   * [scDIOR extended function]
-      * [scDIOR read h5ad file]
-      * [scDIOR read rds file]
-      * [scDIOR command line]
-   * [The scripts link of dior and diopy]
-   * [Reference websites]
+   * [Getting started](#3)
+      * [Starting environment (for docker image)](#3.1)
+      * [R loading packages](#3.2)
+      * [Python loading packages](#3.3)
+   * [Example A](#4)
+      * [Loading data with `scvelo` in `Python`](#4.1)
+      * [Saving data with `diopy` in `Python`](#4.2)
+      * [Loading data with`dior` in `R`](#4.3)
+      * [Saving data with`dior` in `R`](#4.4)
+      * [Loading `cds_trajectory.h5` with `diopy` in `Python`](#4.5)
+   * [Example B](#5)
+      * [Loading data with `diopy`in `Python`](#5.1)
+      * [Saving data with `diopy` in `Python`](#5.2)
+      * [Loading data with`dior` in `R`](#5.3)
+   * [Example C](#6)
+      * [Loading data from 10X Genomics Spatial Datasets](#6.1)
+      * [Saving data by `diopy` in `Python`](#6.2)
+      * [Loading data by `dior` in `R`](#6.3)
+      * [Saving data by `dior` in `R`](#6.4)
+   * [scDIOR extended function](#7)
+      * [scDIOR read h5ad file](#7.1)
+      * [scDIOR read rds file](#7.2)
+      * [scDIOR command line](#7.3)
+   * [The scripts link of dior and diopy](#8)
+   * [Reference websites](#9)
 
-<br>
+___
 
-<h2 id="1">
-    Overview
-</h2>
+<div id="1"></div>
+
+## Overview
 
 scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. The data transformation was implemented by a ‘.h5’ file of [HDF5](https://www.hdfgroup.org/) format, which harmonizes the different data types between R and Python. The different aspects of single-cell information were stored in HDF5 group with dataset. scDIOR creates 8 HDF5 groups to store core single-cell information, including data, layers, obs, var, dimR, graphs, uns and spatial.   
 
 ![overview](Figures/overview.jpg)
 
-<br>
+<div id="2"></div>
 
-<h2 id="2">
-    Preparation
-</h2>
+## Preparation
 
-<br>
+<div id="2.1"></div>
 
-<h2 id="2.1">
-    Operating Environment
-</h2>
+### Operating Environment
 
 **1. Docker image (recommended) :**
 
@@ -105,9 +103,9 @@ pip install diopy
 
 ____
 
-<br>
+<div id="3"></div>
 
-## [Getting started](#Directory)
+## Getting started
 
 Here, we list the three specific examples and the extended function to show the powerful performance of scDIOR.
 
@@ -121,7 +119,7 @@ Here, we list the three specific examples and the extended function to show the 
   2. the function to load ‘.h5ad’ file in R directly;
   3. command line  
 
-<br>
+<div id="3.1"></div>
 
 ### Starting environment (for docker image)
 
@@ -189,9 +187,10 @@ Here, we list the three specific examples and the extended function to show the 
    localhost:port1
    ```
 
-<br>
+<div id="3.2"></div>
 
 ### R loading packages
+
 
 ```R
 # in R
@@ -202,7 +201,7 @@ library(monocle3)
 library(ggplot2)
 ```
 
-<br>
+<div id="3.3"></div>
 
 ### Python loading packages
 
@@ -218,11 +217,13 @@ import diopy
 
 ___
 
-<br>
+<div id="4"></div>
 
 ## Example A
 
 One can perform trajectory analysis using Monocle3 in R, then transform the single-cell data to Scanpy in Python using scDIOR, such as expression profiles of spliced and unspliced, as well as cell layout. The expression profile can be used to run dynamical RNA velocity analysis and results can be projected on the layout of Monocle3.
+
+<div id="4.1"></div>
 
 ### Loading data with `scvelo` in `Python`
 
@@ -241,6 +242,8 @@ adata
 #     obsp: 'distances', 'connectivities'
 ```
 
+<div id="4.2"></div>
+
 ### Saving data with `diopy` in `Python`
 
 ```Python
@@ -248,6 +251,8 @@ adata
 diopy.output.write_h5(adata = adata, 
                       file = './result/py_write_h5/data_write_velocity.h5')
 ```
+
+<div id="4.3"></div>
 
 ### Loading data with`dior` in `R`
 
@@ -311,6 +316,8 @@ reducedDim(sce,'UMAP') <- reducedDim(cds, 'UMAP')
 reducedDimNames(sce)<- c('pca','umap','monocle_PCA','monocle_UMAP')
 ```
 
+<div id="4.4"></div>
+
 ### Saving data with`dior` in `R`
 
 ```R
@@ -320,6 +327,8 @@ write_h5(data = sce,
          assay.name = 'RNA' ,
          object.type = 'singlecellexperiment')
 ```
+
+<div id="4.5"></div>
 
 ### Loading `cds_trajectory.h5` with `diopy` in `Python`
 
@@ -362,11 +371,13 @@ scv.pl.velocity_embedding_stream(adata,
 
 ___
 
-<br>
+<div id="5"></div>
 
 ## Example B
 
 One can employ single-cell data preprocess and normalization method provided by Scanpy, and utilize batches correction method provided by Seurat.
+
+<div id="5.1"></div>
 
 ### Loading data with `diopy`in `Python`
 
@@ -389,6 +400,8 @@ sc.pl.umap(adata,
 
 ![batch_data_in_scanpy](Figures/batch_data_in_scanpy.png)
 
+<div id="5.2"></div>
+
 ### Saving data with `diopy` in `Python`
 
 ```python
@@ -397,6 +410,8 @@ diopy.output.write_h5(adata,
                       file = './result/batch_effect_data.h5', 
                       save_X=False) # Select not to save adata_all.X, because that's scale data,
 ```
+
+<div id="5.3"></div>
 
 ### Loading data with `dior` in `R`
 
@@ -468,9 +483,11 @@ DimPlot(adata_combined, reduction = "umap", group.by = c("batch", 'celltype'))
 
 ___
 
-<br>
+<div id="6"></div>
 
 ## Example C
+
+<div id="6.1"></div>
 
 ### Loading data from 10X Genomics Spatial Datasets
 
@@ -527,6 +544,8 @@ sc.pl.spatial(adata, img_key="hires", color=["clusters", "CR2"], save='.spatial_
 
 ![spatail_analysis_by_scanpy](Figures/spatail_analysis_by_scanpy.png)
 
+<div id="6.2"></div>
+
 ### Saving data with`diopy` in `Python`
 
 ```python
@@ -535,6 +554,8 @@ diopy.output.write_h5(adata=adata,
                       file='./result/spatial_data_scanpy.h5',
                       assay_name='spatial')
 ```
+
+<div id="6.3"></div>
 
 ### Loading data with `dior` in `R`
 
@@ -567,6 +588,8 @@ SpatialFeaturePlot(adata,
 
 ![r_spatial_gene_cr2](Figures/r_spatial_gene_cr2.jpg)
 
+<div id="6.4"></div>
+
 ### Saving data with `dior` in `R`
 
 ```R
@@ -586,9 +609,11 @@ adata = diopy.input.read_h5(file = './result/spatial_data_scanpy_v2.h5',
 
 ___
 
-<br>
+<div id="7"></div>
 
 ## scDIOR extended function
+
+<div id="7.1"></div>
 
 ### scDIOR read h5ad file
 
@@ -600,6 +625,8 @@ adata = read_h5ad(file = './data/data_test_batch.h5ad',
                   target.object = 'seurat', 
                   assay_name = 'RNA')
 ```
+
+<div id="7.2"></div>
 
 ### scDIOR read rds file
 
@@ -618,6 +645,8 @@ adata
 #     obsm: 'X_mono_pca', 'X_mono_umap', 'X_pca', 'X_umap'
 #     layers: 'spliced', 'unspliced'
 ```
+
+<div id="7.3"></div>
 
 ### scDIOR command line
 
@@ -682,12 +711,11 @@ adata
 
 ___
 
-<br>
-
-
+<div id="8"></div>
 
 ## The scripts link of dior and diopy
 
+<div id="9"></div>
 
 ## Reference websites
 
