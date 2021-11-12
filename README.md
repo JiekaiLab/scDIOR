@@ -11,6 +11,7 @@ scDIOR: Single cell data IO softwaRe
    * [Overview](#1)
    * [Preparation](#2)
       * [Operating Environment](#2.1)
+      * [Version control](#2.2)
    * [Getting started](#3)
       * [Starting environment (for docker image)](#3.1)
       * [R loading packages](#3.2)
@@ -40,44 +41,38 @@ scDIOR: Single cell data IO softwaRe
 ___
 
 <div id="1"></div>
-
 ## Overview [![top](Figures/top.jpg)](#0)
-
-
 
 scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. The data transformation was implemented by a ‘.h5’ file of [HDF5](https://www.hdfgroup.org/) format, which harmonizes the different data types between R and Python. The different aspects of single-cell information were stored in HDF5 group with dataset. scDIOR creates 8 HDF5 groups to store core single-cell information, including data, layers, obs, var, dimR, graphs, uns and spatial.   
 
 ![overview](Figures/overview.jpg)
 
 <div id="2"></div>
-
 ## Preparation [![top](Figures/top.jpg)](#0)
 
 <div id="2.1"></div>
-
 ### Operating Environment
 
 **1. Docker image (recommended) :**
 
-It is recommend to perform scDIOR in docker image, which ensures that the operating environment remains stable. scDIOR image is already available for download at Docker Hub, [click here](da).  
+It is recommend to perform scDIOR in docker image, which ensures that the operating environment remains stable. scDIOR image is already available for download at Docker Hub, [click here](https://hub.docker.com/repository/docker/jiekailab/scdior-image).  
+
+We 
 
 Building scDIOR image:
 
 1. we first built the basic jupyter image which based on [jupyter/base-notebook](https://github.com/jupyter/docker-stacks) (jupyter managing Python and R) and [fixuid](https://github.com/boxboat/fixuid) (fixing user/group mapping issues in containers). This basic image is already available for download at Docker Hub, click here.
-2.  Based on our customized basic image, we construct scDior image again by Dockerfile. For the content of Dockerfile, please check the file under the dockerfile.
+2.  Based on our customized basic image, we construct scDIOR image again by `Dockerfile`. For the content of `Dockerfile`, please check the file under the dockerfile.
 
 The current latest image contains the following main analysis platforms and software: 
 
 | R                    | version | Python  | version |
 | :------------------- | ------- | ------- | ------- |
 | R                    | 4.0.5   | Python  | 3.8.8   |
-| Seurat               | 4.0.2   | Scanpy  | 1.7.2   |
+| Seurat               | 4.0.2   | Scanpy  | 1.      |
 | SingleCellExperiment | 1.12.0  | scvelo  | 0.2.3   |
 | monocle3             | 1.0.0   | anndata | 0.7.6   |
-| dior                 | 0.1.4   | diopy   | 0.5.0   |
-|                      |         |         |         |
-|                      |         |         |         |
-|                      |         |         |         |
+| dior                 | 0.1.4   | diopy   | 0.5.2   |
 
 **2. conda environment (not recommended) :**
 
@@ -103,10 +98,20 @@ devtools::install_github('JiekaiLab/dior')
 pip install diopy
 ```
 
+<div id="2.2"></div>
+
+### Version control
+
+ At present, scDIOR is widely compatible with Seurat (v3~v4) and Scanpy (1.4~1.8) in different docker image. We configured mutitple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.
+
+| Platform | Software | Version | data IO                 |
+| -------- | -------- | ------- | ----------------------- |
+| R        | Seurat   | v3~v4   | :ballot_box_with_check: |
+| Python   | Scanpy   | 1.4~1.8 | :ballot_box_with_check: |
+
 ____
 
 <div id="3"></div>
-
 ## Getting started [![top](Figures/top.jpg)](#0)
 
 Here, we list the three specific examples and the extended function to show the powerful performance of scDIOR.
@@ -122,7 +127,6 @@ Here, we list the three specific examples and the extended function to show the 
   3. command line  
 
 <div id="3.1"></div>
-
 ### Starting environment (for docker image)
 
 1. **Remote server **
@@ -190,7 +194,6 @@ Here, we list the three specific examples and the extended function to show the 
    ```
 
 <div id="3.2"></div>
-
 ### R loading packages
 
 
@@ -204,7 +207,6 @@ library(ggplot2)
 ```
 
 <div id="3.3"></div>
-
 ### Python loading packages
 
 ```python
@@ -220,13 +222,11 @@ import diopy
 ___
 
 <div id="4"></div>
-
 ## Example A [![top](Figures/top.jpg)](#0)
 
 One can perform trajectory analysis using Monocle3 in R, then transform the single-cell data to Scanpy in Python using scDIOR, such as expression profiles of spliced and unspliced, as well as cell layout. The expression profile can be used to run dynamical RNA velocity analysis and results can be projected on the layout of Monocle3.
 
 <div id="4.1"></div>
-
 ### Loading data with `scvelo` in `Python`
 
 This data is curated by the `scvelo`, loaded by the code:
@@ -245,7 +245,6 @@ adata
 ```
 
 <div id="4.2"></div>
-
 ### Saving data with `diopy` in `Python`
 
 ```Python
@@ -255,7 +254,6 @@ diopy.output.write_h5(adata = adata,
 ```
 
 <div id="4.3"></div>
-
 ### Loading data with`dior` in `R`
 
 ```R
@@ -319,7 +317,6 @@ reducedDimNames(sce)<- c('pca','umap','monocle_PCA','monocle_UMAP')
 ```
 
 <div id="4.4"></div>
-
 ### Saving data with`dior` in `R`
 
 ```R
@@ -331,7 +328,6 @@ write_h5(data = sce,
 ```
 
 <div id="4.5"></div>
-
 ### Loading `cds_trajectory.h5` with `diopy` in `Python`
 
 ```python
@@ -374,13 +370,11 @@ scv.pl.velocity_embedding_stream(adata,
 ___
 
 <div id="5"></div>
-
 ## Example B [![top](Figures/top.jpg)](#0)
 
 One can employ single-cell data preprocess and normalization method provided by Scanpy, and utilize batches correction method provided by Seurat.
 
 <div id="5.1"></div>
-
 ### Loading data with `diopy`in `Python`
 
 The data is curated by `scanpy`, loaded by the code:
@@ -403,7 +397,6 @@ sc.pl.umap(adata,
 ![batch_data_in_scanpy](Figures/batch_data_in_scanpy.png)
 
 <div id="5.2"></div>
-
 ### Saving data with `diopy` in `Python`
 
 ```python
@@ -414,7 +407,6 @@ diopy.output.write_h5(adata,
 ```
 
 <div id="5.3"></div>
-
 ### Loading data with `dior` in `R`
 
 ```R
@@ -486,11 +478,9 @@ DimPlot(adata_combined, reduction = "umap", group.by = c("batch", 'celltype'))
 ___
 
 <div id="6"></div>
-
 ## Example C [![top](Figures/top.jpg)](#0)
 
 <div id="6.1"></div>
-
 ### Loading data from 10X Genomics Spatial Datasets
 
 Downloading the spatial data set from [10X Genomics Spatial Datasets](https://support.10xgenomics.com/spatial-gene-expression/datasets)
@@ -547,7 +537,6 @@ sc.pl.spatial(adata, img_key="hires", color=["clusters", "CR2"], save='.spatial_
 ![spatail_analysis_by_scanpy](Figures/spatail_analysis_by_scanpy.png)
 
 <div id="6.2"></div>
-
 ### Saving data with`diopy` in `Python`
 
 ```python
@@ -558,7 +547,6 @@ diopy.output.write_h5(adata=adata,
 ```
 
 <div id="6.3"></div>
-
 ### Loading data with `dior` in `R`
 
 ```R
@@ -591,7 +579,6 @@ SpatialFeaturePlot(adata,
 ![r_spatial_gene_cr2](Figures/r_spatial_gene_cr2.jpg)
 
 <div id="6.4"></div>
-
 ### Saving data with `dior` in `R`
 
 ```R
@@ -612,11 +599,9 @@ adata = diopy.input.read_h5(file = './result/spatial_data_scanpy_v2.h5',
 ___
 
 <div id="7"></div>
-
 ## scDIOR extended function [![top](Figures/top.jpg)](#0)
 
 <div id="7.1"></div>
-
 ### scDIOR read h5ad file
 
 Reading the h5ad file in R. `dior::read_h5ad` function will create a file with `_tmp.h5` suffix.
@@ -629,7 +614,6 @@ adata = read_h5ad(file = './data/data_test_batch.h5ad',
 ```
 
 <div id="7.2"></div>
-
 ### scDIOR read rds file
 
 Reading the rds file in Python. `diopy.input.read_rds` function will create a file with `_tmp.h5` suffix.
@@ -649,7 +633,6 @@ adata
 ```
 
 <div id="7.3"></div>
-
 ### scDIOR command line
 
  ScDIOR uses the command line to convert different data by calling `scdior`.  
@@ -714,11 +697,17 @@ adata
 ___
 
 <div id="8"></div>
-
 ## The scripts link of dior and diopy [![top](Figures/top.jpg)](#0)
 
-<div id="9"></div>
+1. 
 
+
+
+
+
+
+
+<div id="9"></div>
 ## Reference websites [![top](Figures/top.jpg)](#0)
 
 1. jupyter docker stacks: 

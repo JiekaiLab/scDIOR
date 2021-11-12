@@ -1,5 +1,7 @@
-FROM hjfeng/base-jupyter-notebook:1.1
-ARG DEBIAN_FRONTEND=noninteractive # 用于把参数设置默认为True，不用交互提供指令
+FROM hjfeng/base-jupyter-notebook:1.1 
+# this base iamge is from docker hub jiekailab/scdior-image:base-jupyter-notebook1.0
+# https://hub.docker.com/repository/docker/jiekailab/scdior-image
+ARG DEBIAN_FRONTEND=noninteractive 
 RUN conda config --add channels bioconda \
     && mamba install -y -c conda-forge \
         git \
@@ -35,13 +37,15 @@ RUN conda config --add channels bioconda \
         bioconductor-biocgenerics \
         bioconductor-scran \
         bioconductor-scater \
+        bioconductor-loomexperiment \
         r-leidenbase \
         r-monocle3 \
     && pip install \
-        scanpy==1.7.2 \
-        scvelo==0.2.3 \
+        scanpy==1.8.1 \
+        scvelo \
         diopy \
         loompy \
     && Rscript -e 'devtools::install_github("JiekaiLab/dior")' \
-    && Rscript -e 'IRkernel::installspec()' \
+               -e 'devtools::install_github("mojaveazure/seurat-disk")' \
+               -e 'IRkernel::installspec()' \
     && rm -rf /opt/conda/pkgs/*
