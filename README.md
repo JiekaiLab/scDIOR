@@ -99,7 +99,7 @@ pip install diopy
 <div id="2.2"></div>
 ### Version control
 
- At present, scDIOR is widely compatible with Seurat (v3~v4) and Scanpy (1.4~1.8) in different docker image. We configured mutitple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.dad ag
+ At present, scDIOR is widely compatible with Seurat (v3\~v4) and Scanpy (1.4\~1.8) in different docker image. We configured mutitple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.dad ag
 
 | Platform | Software | Version | data IO                 |
 | -------- | -------- | ------- | ----------------------- |
@@ -697,8 +697,6 @@ ___
 ## The scripts link of dior and diopy [![top](Figures/top.jpg)](#0)
 
 1. 
-
-
 
 
 
