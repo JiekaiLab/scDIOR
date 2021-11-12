@@ -57,9 +57,7 @@ scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. T
 
 It is recommend to perform scDIOR in docker image, which ensures that the operating environment remains stable. scDIOR image is already available for download at Docker Hub, [click here](https://hub.docker.com/repository/docker/jiekailab/scdior-image).  
 
-We 
-
-Building scDIOR image:
+We Building scDIOR image:
 
 1. we first built the basic jupyter image which based on [jupyter/base-notebook](https://github.com/jupyter/docker-stacks) (jupyter managing Python and R) and [fixuid](https://github.com/boxboat/fixuid) (fixing user/group mapping issues in containers). This basic image is already available for download at Docker Hub, click here.
 2.  Based on our customized basic image, we construct scDIOR image again by `Dockerfile`. For the content of `Dockerfile`, please check the file under the dockerfile.
@@ -99,10 +97,9 @@ pip install diopy
 ```
 
 <div id="2.2"></div>
-
 ### Version control
 
- At present, scDIOR is widely compatible with Seurat (v3~v4) and Scanpy (1.4~1.8) in different docker image. We configured mutitple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.
+ At present, scDIOR is widely compatible with Seurat (v3~v4) and Scanpy (1.4~1.8) in different docker image. We configured mutitple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.dad ag
 
 | Platform | Software | Version | data IO                 |
 | -------- | -------- | ------- | ----------------------- |
