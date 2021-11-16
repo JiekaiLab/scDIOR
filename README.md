@@ -41,15 +41,14 @@ scDIOR: Single cell data RNA IO softwaRe
 ___
 
 <div id="1"></div>
-## Overview [![top](Figures/top.jpg)](#0)
+## Overview 
 
 scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. The data transformation was implemented by a ‘.h5’ file of [HDF5](https://www.hdfgroup.org/) format, which harmonizes the different data types between R and Python. The different aspects of single-cell information were stored in HDF5 group with dataset. scDIOR creates 8 HDF5 groups to store core single-cell information, including data, layers, obs, var, dimR, graphs, uns and spatial.   
 
 ![overview](Figures/overview.jpg)
 
 <div id="2"></div>
-## Preparation [![top](Figures/top.jpg)](#0)
-
+## Preparation
 <div id="2.1"></div>
 ### Operating Environment
 
@@ -98,7 +97,6 @@ pip install diopy
 
 <div id="2.2"></div>
 ### Version control
-
  At present, scDIOR is widely compatible with Seurat (v3\~v4) and Scanpy (1.4\~1.8) in different docker image. We configured mutitple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.dad ag
 
 | Platform | Software | Version | data IO                 |
@@ -109,7 +107,7 @@ pip install diopy
 ____
 
 <div id="3"></div>
-## Getting started [![top](Figures/top.jpg)](#0)
+## Getting started
 
 Here, we list the three specific examples and the extended function to show the powerful performance of scDIOR.
 
@@ -219,7 +217,7 @@ import diopy
 ___
 
 <div id="4"></div>
-## Example A [![top](Figures/top.jpg)](#0)
+## Example A
 
 One can perform trajectory analysis using Monocle3 in R, then transform the single-cell data to Scanpy in Python using scDIOR, such as expression profiles of spliced and unspliced, as well as cell layout. The expression profile can be used to run dynamical RNA velocity analysis and results can be projected on the layout of Monocle3.
 
@@ -367,7 +365,7 @@ scv.pl.velocity_embedding_stream(adata,
 ___
 
 <div id="5"></div>
-## Example B [![top](Figures/top.jpg)](#0)
+## Example B
 
 One can employ single-cell data preprocess and normalization method provided by Scanpy, and utilize batches correction method provided by Seurat.
 
@@ -475,7 +473,7 @@ DimPlot(adata_combined, reduction = "umap", group.by = c("batch", 'celltype'))
 ___
 
 <div id="6"></div>
-## Example C [![top](Figures/top.jpg)](#0)
+## Example C
 
 <div id="6.1"></div>
 ### Loading data from 10X Genomics Spatial Datasets
@@ -596,7 +594,7 @@ adata = diopy.input.read_h5(file = './result/spatial_data_scanpy_v2.h5',
 ___
 
 <div id="7"></div>
-## scDIOR extended function [![top](Figures/top.jpg)](#0)
+## scDIOR extended function
 
 <div id="7.1"></div>
 ### scDIOR read h5ad file
@@ -694,16 +692,15 @@ adata
 ___
 
 <div id="8"></div>
-## The scripts link of dior and diopy [![top](Figures/top.jpg)](#0)
+## The scripts link of dior and diopy
 
 1. 
 
 
 
 
-
 <div id="9"></div>
-## Reference websites [![top](Figures/top.jpg)](#0)
+## Reference websites
 
 1. jupyter docker stacks: 
    1. https://github.com/jupyter/docker-stacks
