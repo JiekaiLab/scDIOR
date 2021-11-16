@@ -1,5 +1,5 @@
 # scDIOR
-scDIOR: Single cell data IO softwaRe
+scDIOR: Single cell data RNA IO softwaRe
 
 <br>
 
@@ -141,7 +141,7 @@ Here, we list the three specific examples and the extended function to show the 
    2. Starting container of scDIOR image
 
    ```shell
-   IMG=hjfeng/scdior_image:1.2 # 1. 指定使用的镜像
+   IMG=hjfeng/scdior_image:1.2 
    PORT=port2 # port2
    PROJECT=scdior
    MEMORY=64g 
