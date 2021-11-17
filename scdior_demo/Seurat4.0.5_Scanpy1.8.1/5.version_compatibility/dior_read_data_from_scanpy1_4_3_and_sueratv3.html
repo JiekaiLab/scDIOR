@@ -14512,7 +14512,12 @@ a.anchor-link {
     </script>
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="scDIOR-implements-data-IO-between-old-and-new-versions">scDIOR implements data IO between old and new versions<a class="anchor-link" href="#scDIOR-implements-data-IO-between-old-and-new-versions">&#182;</a></h1>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
@@ -14688,6 +14693,21 @@ The following objects are masked from ‘package:Biobase’:
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">download.file</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://fenghuijian.github.io/doc/scdior_demo/Seurat3.2.3_Scanpy1.4.3/5.version_compatibility/adata_from_scanpy1_4_3.h5&#39;</span><span class="p">,</span>
+              <span class="n">destfile</span> <span class="o">=</span> <span class="s">&#39;./adata_from_scanpy1_4_3.h5&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="nf">read_h5</span><span class="p">(</span><span class="n">file</span> <span class="o">=</span> <span class="s">&#39;./adata_from_scanpy1_4_3.h5&#39;</span><span class="p">,</span>
                 <span class="n">assay.name</span> <span class="o">=</span> <span class="s">&#39;RNA&#39;</span><span class="p">)</span>
 </pre></div>
@@ -14700,7 +14720,7 @@ The following objects are masked from ‘package:Biobase’:
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">str</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
@@ -14727,68 +14747,68 @@ The following objects are masked from ‘package:Biobase’:
   ..@ assays      :List of 1
   .. ..$ RNA:Formal class &#39;Assay&#39; [package &#34;SeuratObject&#34;] with 8 slots
   .. .. .. ..@ counts       :Formal class &#39;dgCMatrix&#39; [package &#34;Matrix&#34;] with 6 slots
-  .. .. .. .. .. ..@ i       : int [1:10834388] 12 18 27 32 38 42 45 49 53 62 ...
-  .. .. .. .. .. ..@ p       : int [1:4592] 0 2550 5567 7600 9793 12423 14709 19467 21307 25075 ...
-  .. .. .. .. .. ..@ Dim     : int [1:2] 19037 4591
+  .. .. .. .. .. ..@ i       : int [1:23] 2 5 9 1 4 2 0 2 9 1 ...
+  .. .. .. .. .. ..@ p       : int [1:21] 0 3 4 5 6 7 7 7 9 11 ...
+  .. .. .. .. .. ..@ Dim     : int [1:2] 10 20
   .. .. .. .. .. ..@ Dimnames:List of 2
-  .. .. .. .. .. .. ..$ : chr [1:19037] &#34;AL627309.1&#34; &#34;AL669831.5&#34; &#34;FAM87B&#34; &#34;LINC00115&#34; ...
-  .. .. .. .. .. .. ..$ : chr [1:4591] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
-  .. .. .. .. .. ..@ x       : num [1:10834388] 1.753 0.785 0.785 1.521 0.785 ...
+  .. .. .. .. .. .. ..$ : chr [1:10] &#34;LINC00115&#34; &#34;HES4&#34; &#34;ISG15&#34; &#34;TNFRSF18&#34; ...
+  .. .. .. .. .. .. ..$ : chr [1:20] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
+  .. .. .. .. .. ..@ x       : num [1:23] 1.753 0.785 0.785 0.615 0.892 ...
   .. .. .. .. .. ..@ factors : list()
   .. .. .. ..@ data         :Formal class &#39;dgCMatrix&#39; [package &#34;Matrix&#34;] with 6 slots
-  .. .. .. .. .. ..@ i       : int [1:10834388] 12 18 27 32 38 42 45 49 53 62 ...
-  .. .. .. .. .. ..@ p       : int [1:4592] 0 2550 5567 7600 9793 12423 14709 19467 21307 25075 ...
-  .. .. .. .. .. ..@ Dim     : int [1:2] 19037 4591
+  .. .. .. .. .. ..@ i       : int [1:23] 2 5 9 1 4 2 0 2 9 1 ...
+  .. .. .. .. .. ..@ p       : int [1:21] 0 3 4 5 6 7 7 7 9 11 ...
+  .. .. .. .. .. ..@ Dim     : int [1:2] 10 20
   .. .. .. .. .. ..@ Dimnames:List of 2
-  .. .. .. .. .. .. ..$ : chr [1:19037] &#34;AL627309.1&#34; &#34;AL669831.5&#34; &#34;FAM87B&#34; &#34;LINC00115&#34; ...
-  .. .. .. .. .. .. ..$ : chr [1:4591] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
-  .. .. .. .. .. ..@ x       : num [1:10834388] 1.753 0.785 0.785 1.521 0.785 ...
+  .. .. .. .. .. .. ..$ : chr [1:10] &#34;LINC00115&#34; &#34;HES4&#34; &#34;ISG15&#34; &#34;TNFRSF18&#34; ...
+  .. .. .. .. .. .. ..$ : chr [1:20] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
+  .. .. .. .. .. ..@ x       : num [1:23] 1.753 0.785 0.785 0.615 0.892 ...
   .. .. .. .. .. ..@ factors : list()
   .. .. .. ..@ scale.data   : num[0 , 0 ] 
   .. .. .. ..@ key          : chr &#34;rna_&#34;
   .. .. .. ..@ assay.orig   : NULL
   .. .. .. ..@ var.features : logi(0) 
-  .. .. .. ..@ meta.features:&#39;data.frame&#39;:	19037 obs. of  7 variables:
-  .. .. .. .. ..$ gene_ids        : chr [1:19037] &#34;ENSG00000238009&#34; &#34;ENSG00000237491&#34; &#34;ENSG00000177757&#34; &#34;ENSG00000225880&#34; ...
-  .. .. .. .. ..$ feature_types   : Factor w/ 1 level &#34;Gene Expression&#34;: 1 1 1 1 1 1 1 1 1 1 ...
-  .. .. .. .. ..$ n_cells         : int [1:19037] 23 392 14 274 145 3 7 1425 110 45 ...
-  .. .. .. .. ..$ highly_variable : logi [1:19037] FALSE FALSE FALSE TRUE FALSE FALSE ...
-  .. .. .. .. ..$ means           : num [1:19037] 0.00556 0.09802 0.00185 0.07657 0.03803 ...
-  .. .. .. .. ..$ dispersions     : num [1:19037] 0.191 0.406 0.025 1.233 0.441 ...
-  .. .. .. .. ..$ dispersions_norm: num [1:19037] -0.785 -0.2 -1.235 2.046 -0.104 ...
+  .. .. .. ..@ meta.features:&#39;data.frame&#39;:	10 obs. of  7 variables:
+  .. .. .. .. ..$ gene_ids        : chr [1:10] &#34;ENSG00000225880&#34; &#34;ENSG00000188290&#34; &#34;ENSG00000187608&#34; &#34;ENSG00000186891&#34; ...
+  .. .. .. .. ..$ feature_types   : Factor w/ 1 level &#34;Gene Expression&#34;: 1 1 1 1 1 1 1 1 1 1
+  .. .. .. .. ..$ n_cells         : int [1:10] 274 272 2209 281 325 817 222 82 201 1305
+  .. .. .. .. ..$ highly_variable : logi [1:10] TRUE TRUE TRUE TRUE TRUE TRUE ...
+  .. .. .. .. ..$ means           : num [1:10] 0.0766 0.1056 0.7819 0.0947 0.1104 ...
+  .. .. .. .. ..$ dispersions     : num [1:10] 1.233 1.159 1.877 0.913 0.84 ...
+  .. .. .. .. ..$ dispersions_norm: num [1:10] 2.046 1.844 2.264 1.177 0.979 ...
   .. .. .. ..@ misc         : list()
-  ..@ meta.data   :&#39;data.frame&#39;:	4591 obs. of  3 variables:
-  .. ..$ n_genes     : int [1:4591] 2550 3017 2033 2193 2630 2286 4758 1840 3768 2943 ...
-  .. ..$ percent_mito: num [1:4591] 0.0915 0.063 0.0557 0.0775 0.0778 ...
-  .. ..$ n_counts    : num [1:4591] 8384 11768 6947 9354 8970 ...
+  ..@ meta.data   :&#39;data.frame&#39;:	20 obs. of  3 variables:
+  .. ..$ n_genes     : int [1:20] 2550 3017 2033 2193 2630 2286 4758 1840 3768 2943 ...
+  .. ..$ percent_mito: num [1:20] 0.0915 0.063 0.0557 0.0775 0.0778 ...
+  .. ..$ n_counts    : num [1:20] 8384 11768 6947 9354 8970 ...
   ..@ active.assay: chr &#34;RNA&#34;
   ..@ active.ident: Factor w/ 1 level &#34;SeuratProject&#34;: 1 1 1 1 1 1 1 1 1 1 ...
-  .. ..- attr(*, &#34;names&#34;)= chr [1:4591] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
+  .. ..- attr(*, &#34;names&#34;)= chr [1:20] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
   ..@ graphs      :List of 2
   .. ..$ RNA_nn :Formal class &#39;dgCMatrix&#39; [package &#34;Matrix&#34;] with 6 slots
-  .. .. .. ..@ i       : int [1:41319] 1022 1025 1938 2245 2396 3596 3678 3858 4540 246 ...
-  .. .. .. ..@ p       : int [1:4592] 0 9 18 27 36 45 54 63 72 81 ...
-  .. .. .. ..@ Dim     : int [1:2] 4591 4591
+  .. .. .. ..@ i       : int [1:2] 17 9
+  .. .. .. ..@ p       : int [1:21] 0 0 0 0 0 0 0 0 0 0 ...
+  .. .. .. ..@ Dim     : int [1:2] 20 20
   .. .. .. ..@ Dimnames:List of 2
-  .. .. .. .. ..$ : chr [1:4591] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
-  .. .. .. .. ..$ : chr [1:4591] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
-  .. .. .. ..@ x       : num [1:41319] 8.86 8.96 9.02 9.45 9.34 ...
+  .. .. .. .. ..$ : chr [1:20] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
+  .. .. .. .. ..$ : chr [1:20] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
+  .. .. .. ..@ x       : num [1:2] 3.9 3.9
   .. .. .. ..@ factors : list()
   .. ..$ RNA_snn:Formal class &#39;dgCMatrix&#39; [package &#34;Matrix&#34;] with 6 slots
-  .. .. .. ..@ i       : int [1:66700] 741 1022 1025 1404 1938 2080 2245 2363 2396 2512 ...
-  .. .. .. ..@ p       : int [1:4592] 0 16 30 39 56 71 104 116 129 141 ...
-  .. .. .. ..@ Dim     : int [1:2] 4591 4591
+  .. .. .. ..@ i       : int [1:2] 17 9
+  .. .. .. ..@ p       : int [1:21] 0 0 0 0 0 0 0 0 0 0 ...
+  .. .. .. ..@ Dim     : int [1:2] 20 20
   .. .. .. ..@ Dimnames:List of 2
-  .. .. .. .. ..$ : chr [1:4591] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
-  .. .. .. .. ..$ : chr [1:4591] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
-  .. .. .. ..@ x       : num [1:66700] 0.241 1 0.611 0.135 0.385 ...
+  .. .. .. .. ..$ : chr [1:20] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
+  .. .. .. .. ..$ : chr [1:20] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
+  .. .. .. ..@ x       : num [1:2] 1 1
   .. .. .. ..@ factors : list()
   ..@ neighbors   : list()
   ..@ reductions  :List of 2
   .. ..$ pca :Formal class &#39;DimReduc&#39; [package &#34;SeuratObject&#34;] with 9 slots
-  .. .. .. ..@ cell.embeddings           : num [1:4591, 1:50] -7.95 23.43 -9.88 -8.83 -3.61 ...
+  .. .. .. ..@ cell.embeddings           : num [1:20, 1:50] -4.99 15.94 -6.32 -6.06 -1.23 ...
   .. .. .. .. ..- attr(*, &#34;dimnames&#34;)=List of 2
-  .. .. .. .. .. ..$ : chr [1:4591] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
+  .. .. .. .. .. ..$ : chr [1:20] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
   .. .. .. .. .. ..$ : chr [1:50] &#34;PCA_1&#34; &#34;PCA_2&#34; &#34;PCA_3&#34; &#34;PCA_4&#34; ...
   .. .. .. ..@ feature.loadings          : num[0 , 0 ] 
   .. .. .. ..@ feature.loadings.projected: num[0 , 0 ] 
@@ -14803,9 +14823,9 @@ The following objects are masked from ‘package:Biobase’:
   .. .. .. .. .. ..@ overall.p.values       : num[0 , 0 ] 
   .. .. .. ..@ misc                      : list()
   .. ..$ umap:Formal class &#39;DimReduc&#39; [package &#34;SeuratObject&#34;] with 9 slots
-  .. .. .. ..@ cell.embeddings           : num [1:4591, 1:2] 2.67 13.43 -2.61 -4.53 9.29 ...
+  .. .. .. ..@ cell.embeddings           : num [1:20, 1:2] 11.32 -4.8 12.37 13.29 -2.01 ...
   .. .. .. .. ..- attr(*, &#34;dimnames&#34;)=List of 2
-  .. .. .. .. .. ..$ : chr [1:4591] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
+  .. .. .. .. .. ..$ : chr [1:20] &#34;AAACCCAAGACAGCTG-1&#34; &#34;AAACCCAAGTTAACGA-1&#34; &#34;AAACCCACAGTCGCAC-1&#34; &#34;AAACCCAGTAGCTTGT-1&#34; ...
   .. .. .. .. .. ..$ : chr [1:2] &#34;UMAP_1&#34; &#34;UMAP_2&#34;
   .. .. .. ..@ feature.loadings          : num[0 , 0 ] 
   .. .. .. ..@ feature.loadings.projected: num[0 , 0 ] 
@@ -14842,10 +14862,25 @@ The following objects are masked from ‘package:Biobase’:
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="nf">read_h5</span><span class="p">(</span><span class="n">file</span> <span class="o">=</span> <span class="s">&#39;./adata_from_scanpy1_4_3_R.h5&#39;</span><span class="p">,</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">download.file</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://fenghuijian.github.io/doc/scdior_demo/Seurat3.2.3_Scanpy1.4.3/5.version_compatibility/adata_from_scanpy1_4_3.h5&#39;</span><span class="p">,</span>
+              <span class="n">destfile</span> <span class="o">=</span> <span class="s">&#39;./adata_from_Seuratv3.h5&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="nf">read_h5</span><span class="p">(</span><span class="n">file</span> <span class="o">=</span> <span class="s">&#39;./adata_from_Seuratv3.h5&#39;</span><span class="p">,</span>
                 <span class="n">assay.name</span> <span class="o">=</span> <span class="s">&#39;RNA&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -14857,65 +14892,7 @@ The following objects are masked from ‘package:Biobase’:
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">hdf5r</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>
-Attaching package: ‘hdf5r’
-
-
-The following object is masked from ‘package:SummarizedExperiment’:
-
-    values
-
-
-The following object is masked from ‘package:GenomicRanges’:
-
-    values
-
-
-The following object is masked from ‘package:IRanges’:
-
-    values
-
-
-The following object is masked from ‘package:S4Vectors’:
-
-    values
-
-
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">sessionInfo</span><span class="p">()</span>
@@ -14960,14 +14937,14 @@ attached base packages:
 [8] methods   base     
 
 other attached packages:
- [1] hdf5r_1.3.4                 ggplot2_3.3.5              
- [3] monocle3_1.0.0              dior_0.1.5                 
- [5] SingleCellExperiment_1.12.0 SummarizedExperiment_1.20.0
- [7] Biobase_2.50.0              GenomicRanges_1.42.0       
- [9] GenomeInfoDb_1.26.4         IRanges_2.24.1             
-[11] S4Vectors_0.28.1            BiocGenerics_0.36.0        
-[13] MatrixGenerics_1.2.1        matrixStats_0.61.0         
-[15] SeuratObject_4.0.3          Seurat_4.0.5               
+ [1] ggplot2_3.3.5               monocle3_1.0.0             
+ [3] dior_0.1.5                  SingleCellExperiment_1.12.0
+ [5] SummarizedExperiment_1.20.0 Biobase_2.50.0             
+ [7] GenomicRanges_1.42.0        GenomeInfoDb_1.26.4        
+ [9] IRanges_2.24.1              S4Vectors_0.28.1           
+[11] BiocGenerics_0.36.0         MatrixGenerics_1.2.1       
+[13] matrixStats_0.61.0          SeuratObject_4.0.3         
+[15] Seurat_4.0.5               
 
 loaded via a namespace (and not attached):
   [1] uuid_1.0-3             backports_1.3.0        Hmisc_4.6-0           
@@ -14997,21 +14974,21 @@ loaded via a namespace (and not attached):
  [73] fastmap_1.1.0          goftest_1.2-3          knitr_1.36            
  [76] bit64_4.0.5            fitdistrplus_1.1-6     purrr_0.3.4           
  [79] RANN_2.6.1             pbapply_1.5-0          future_1.23.0         
- [82] nlme_3.1-153           mime_0.12              compiler_4.0.5        
- [85] rstudioapi_0.13        plotly_4.10.0          png_0.1-7             
- [88] spatstat.utils_2.2-0   tibble_3.1.6           stringi_1.7.5         
- [91] lattice_0.20-45        IRdisplay_1.0          Matrix_1.3-4          
- [94] vctrs_0.3.8            pillar_1.6.4           lifecycle_1.0.1       
- [97] spatstat.geom_2.3-0    lmtest_0.9-39          RcppAnnoy_0.0.19      
-[100] data.table_1.14.2      cowplot_1.1.1          bitops_1.0-7          
-[103] irlba_2.3.3            httpuv_1.6.3           patchwork_1.1.1       
-[106] R6_2.5.1               latticeExtra_0.6-29    promises_1.2.0.1      
-[109] KernSmooth_2.23-20     gridExtra_2.3          parallelly_1.28.1     
-[112] codetools_0.2-18       MASS_7.3-54            withr_2.4.2           
-[115] sctransform_0.3.2      GenomeInfoDbData_1.2.4 mgcv_1.8-38           
-[118] grid_4.0.5             rpart_4.1-15           IRkernel_1.2          
-[121] tidyr_1.1.4            Rtsne_0.15             pbdZMQ_0.3-6          
-[124] shiny_1.7.1            base64enc_0.1-3       </pre>
+ [82] nlme_3.1-153           mime_0.12              hdf5r_1.3.4           
+ [85] compiler_4.0.5         rstudioapi_0.13        plotly_4.10.0         
+ [88] png_0.1-7              spatstat.utils_2.2-0   tibble_3.1.6          
+ [91] stringi_1.7.5          lattice_0.20-45        IRdisplay_1.0         
+ [94] Matrix_1.3-4           vctrs_0.3.8            pillar_1.6.4          
+ [97] lifecycle_1.0.1        spatstat.geom_2.3-0    lmtest_0.9-39         
+[100] RcppAnnoy_0.0.19       data.table_1.14.2      cowplot_1.1.1         
+[103] bitops_1.0-7           irlba_2.3.3            httpuv_1.6.3          
+[106] patchwork_1.1.1        R6_2.5.1               latticeExtra_0.6-29   
+[109] promises_1.2.0.1       KernSmooth_2.23-20     gridExtra_2.3         
+[112] parallelly_1.28.1      codetools_0.2-18       MASS_7.3-54           
+[115] withr_2.4.2            sctransform_0.3.2      GenomeInfoDbData_1.2.4
+[118] mgcv_1.8-38            grid_4.0.5             rpart_4.1-15          
+[121] IRkernel_1.2           tidyr_1.1.4            Rtsne_0.15            
+[124] pbdZMQ_0.3-6           shiny_1.7.1            base64enc_0.1-3       </pre>
 </div>
 
 </div>

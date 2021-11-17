@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>4.diopy_vs_loom</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>1.scdior_for_scanpy1.4.3</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14512,13 +14512,19 @@ a.anchor-link {
     </script>
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="scDIOR-recognizes-the-data-structure-of-old-Scanpy">scDIOR recognizes the data structure of old Scanpy<a class="anchor-link" href="#scDIOR-recognizes-the-data-structure-of-old-Scanpy">&#182;</a></h1><p>The location of the Graphs is in adata.uns['neighbors'] in this version.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import the packages</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import </span>
 <span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="nn">sc</span>
 <span class="kn">import</span> <span class="nn">diopy</span>
 <span class="kn">import</span> <span class="nn">h5py</span>
@@ -14526,39 +14532,77 @@ a.anchor-link {
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">import</span> <span class="nn">scvelo</span> <span class="k">as</span> <span class="nn">scv</span>
-<span class="kn">import</span> <span class="nn">loompy</span>
+<span class="c1"># import scvelo as scv</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">set_figure_params</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:17: FutureWarning: pandas.core.index is deprecated and will be removed in a future version.  The public classes are available in the top-level namespace.
+  from pandas.core.index import RangeIndex
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Checking-whether-Scanpy-read-the-loom-file-which-was-saved-from-Seurat-object.">Checking whether Scanpy read the loom file which was saved from Seurat object.<a class="anchor-link" href="#Checking-whether-Scanpy-read-the-loom-file-which-was-saved-from-Seurat-object.">&#182;</a></h1><p>Scanpy can read the loom file which was saved by SeuratDisk (SaveLoom function)</p>
-
+<h1 id="Single-cell-analysis-pipeline">Single cell analysis pipeline<a class="anchor-link" href="#Single-cell-analysis-pipeline">&#182;</a></h1>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># set path </span>
-<span class="n">datafile</span> <span class="o">=</span> <span class="s1">&#39;../../data/6.scDIOR_vs_loom/&#39;</span>
-<span class="n">resultfile</span> <span class="o">=</span> <span class="s1">&#39;../../result/6.scDIOR_vs_loom&#39;</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">resultfile</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">resultfile</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_10x_mtx</span><span class="p">(</span><span class="s1">&#39;./filtered_feature_bc_matrix/&#39;</span><span class="p">)</span> <span class="c1"># from the 10x genomic</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:1237: FutureWarning: is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+  if is_categorical(df_full[k]):
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14567,8 +14611,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># reading data</span>
-<span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_seurat.loom&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">var_names_make_unique</span><span class="p">()</span> 
 </pre></div>
 
      </div>
@@ -14582,7 +14625,8 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_cells</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_genes</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_cells</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14598,35 +14642,31 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>AnnData object with n_obs × n_vars = 100 × 27998
-    obs: &#39;G2M_score&#39;, &#39;S_score&#39;, &#39;clusters&#39;, &#39;clusters_coarse&#39;
-    layers: &#39;counts&#39;</pre>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>Trying to set attribute `.obs` of view, making a copy.
+</pre>
+</div>
 </div>
 
 </div>
 
 </div>
 
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Checking-whether-Scanpy-read-the-loom-file-which-was-saved-from-SingleCellExpriment-object">Checking whether Scanpy read the loom file which was saved from SingleCellExpriment object<a class="anchor-link" href="#Checking-whether-Scanpy-read-the-loom-file-which-was-saved-from-SingleCellExpriment-object">&#182;</a></h1>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_loom</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_sce.loom&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># calculate fraction of the mito gene</span>
+<span class="n">mito_genes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;MT-&#39;</span><span class="p">)</span> <span class="c1"># Determine which genes are mitochondrial genes, bool np.ndarray</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="p">[:,</span> <span class="n">mito_genes</span><span class="p">]</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
+<span class="c1"># calculate the total counts and total genes</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;n_counts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;n_genes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14640,7 +14680,8 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;percent_mito&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;n_counts&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;n_genes&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14656,17 +14697,498 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:1326: FutureWarning: is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+  and not is_categorical(df[key])
+... storing &#39;feature_types&#39; as categorical
+/opt/conda/lib/python3.8/site-packages/scanpy/plotting/_anndata.py:311: DeprecationWarning: Use obs_vector instead of _get_obs_array, _get_obs_array will be removed in the future.
+  x_arr = adata._get_obs_array(x, use_raw=use_raw, layer=layers[0])
+/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:1470: FutureWarning: In a future version of AnnData, access to `.X` by passing `layer=&#39;X&#39;` will be removed. Instead pass `layer=None`.
+  warnings.warn(
+/opt/conda/lib/python3.8/site-packages/scanpy/plotting/_anndata.py:312: DeprecationWarning: Use obs_vector instead of _get_obs_array, _get_obs_array will be removed in the future.
+  y_arr = adata._get_obs_array(y, use_raw=use_raw, layer=layers[1])
+/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:1470: FutureWarning: In a future version of AnnData, access to `.X` by passing `layer=&#39;X&#39;` will be removed. Instead pass `layer=None`.
+  warnings.warn(
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedImage jp-OutputArea-output ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:1326: FutureWarning: is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+  and not is_categorical(df[key])
+/opt/conda/lib/python3.8/site-packages/scanpy/plotting/_anndata.py:311: DeprecationWarning: Use obs_vector instead of _get_obs_array, _get_obs_array will be removed in the future.
+  x_arr = adata._get_obs_array(x, use_raw=use_raw, layer=layers[0])
+/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:1470: FutureWarning: In a future version of AnnData, access to `.X` by passing `layer=&#39;X&#39;` will be removed. Instead pass `layer=None`.
+  warnings.warn(
+/opt/conda/lib/python3.8/site-packages/scanpy/plotting/_anndata.py:312: DeprecationWarning: Use obs_vector instead of _get_obs_array, _get_obs_array will be removed in the future.
+  y_arr = adata._get_obs_array(y, use_raw=use_raw, layer=layers[1])
+/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:1470: FutureWarning: In a future version of AnnData, access to `.X` by passing `layer=&#39;X&#39;` will be removed. Instead pass `layer=None`.
+  warnings.warn(
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedImage jp-OutputArea-output ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">n_genes</span> <span class="o">&lt;</span> <span class="mi">5000</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">percent_mito</span> <span class="o">&lt;</span> <span class="mf">0.2</span><span class="p">,</span> <span class="p">:]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:1237: FutureWarning: is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+  if is_categorical(df_full[k]):
+/opt/conda/lib/python3.8/site-packages/pandas/core/arrays/categorical.py:2631: FutureWarning: The `inplace` parameter in pandas.Categorical.remove_unused_categories is deprecated and will be removed in a future version.
+  res = method(*args, **kwargs)
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">normalize_total</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">target_sum</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="mf">0.0125</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>Trying to set attribute `.var` of view, making a copy.
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># adata.raw = adata</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">highly_variable</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># sc.pp.scale(adata, max_value=10)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">svd_solver</span><span class="o">=</span><span class="s1">&#39;arpack&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/consts.py:114: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  return getattr(value, expr.attr)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:2061: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  defn = getattr(defn, x, False)
+/opt/conda/lib/python3.8/site-packages/numba/core/typing/context.py:338: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  attrval = getattr(typ.pymod, attr)
+/opt/conda/lib/python3.8/site-packages/numba/core/typing/context.py:338: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  attrval = getattr(typ.pymod, attr)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/typing/context.py:338: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  attrval = getattr(typ.pymod, attr)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/conda/lib/python3.8/site-packages/umap/spectral.py:227: UserWarning: Embedding a total of 3 separate connected components using meta-embedding (experimental)
+  warn(
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1525: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if (hasattr(numpy, value)
+/opt/conda/lib/python3.8/site-packages/numba/core/ir_utils.py:1526: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  and def_val == getattr(numpy, value)):
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The graphs is local in the adata.uns[&#39;neighbors&#39;]</span>
+<span class="n">adata</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>AnnData object with n_obs × n_vars = 100 × 27998
-    obs: &#39;G2M_score&#39;, &#39;S_score&#39;, &#39;clusters&#39;, &#39;clusters_coarse&#39;, &#39;colnames&#39;, &#39;reducedDims_pca_colnames&#39;, &#39;reducedDims_umap_colnames&#39;
-    var: &#39;highly_variable_genes&#39;, &#39;rownames&#39;
-    obsm: &#39;colnames_factor&#39;, &#39;reducedDims_pca&#39;, &#39;reducedDims_umap&#39;
-    layers: &#39;matrix&#39;, &#39;spliced&#39;, &#39;unspliced&#39;</pre>
+<pre>AnnData object with n_obs × n_vars = 4591 × 2336 
+    obs: &#39;n_genes&#39;, &#39;percent_mito&#39;, &#39;n_counts&#39;
+    var: &#39;gene_ids&#39;, &#39;feature_types&#39;, &#39;n_cells&#39;, &#39;highly_variable&#39;, &#39;means&#39;, &#39;dispersions&#39;, &#39;dispersions_norm&#39;
+    uns: &#39;pca&#39;, &#39;neighbors&#39;
+    obsm: &#39;X_pca&#39;, &#39;X_umap&#39;
+    varm: &#39;PCs&#39;</pre>
 </div>
 
 </div>
@@ -14678,16 +15200,16 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="diopy-reading-the-h5">diopy reading the h5<a class="anchor-link" href="#diopy-reading-the-h5">&#182;</a></h1>
+<h1 id="Sampling-data-(Reduce-object-size)">Sampling data (Reduce object size)<a class="anchor-link" href="#Sampling-data-(Reduce-object-size)">&#182;</a></h1><p>Graph is deposited in adata.uns['neighbors] with Scanpy version=1.4.3.</p>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata_seurat</span> <span class="o">=</span> <span class="n">diopy</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">read_h5</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_dior_seurat.h5&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
-<span class="n">adata_seurat</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata_sample</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span> <span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 
      </div>
@@ -14703,18 +15225,16 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>AnnData object with n_obs × n_vars = 100 × 27998
-    obs: &#39;clusters_coarse&#39;, &#39;clusters&#39;, &#39;S_score&#39;, &#39;G2M_score&#39;
-    var: &#39;highly_variable_genes&#39;
-    obsm: &#39;X_pca&#39;, &#39;X_umap&#39;
-    layers: &#39;spliced&#39;, &#39;unspliced&#39;
-    obsp: &#39;distances&#39;, &#39;connectivities&#39;</pre>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:1237: FutureWarning: is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+  if is_categorical(df_full[k]):
+/opt/conda/lib/python3.8/site-packages/pandas/core/arrays/categorical.py:2631: FutureWarning: The `inplace` parameter in pandas.Categorical.remove_unused_categories is deprecated and will be removed in a future version.
+  res = method(*args, **kwargs)
+</pre>
+</div>
 </div>
 
 </div>
@@ -14722,15 +15242,18 @@ a.anchor-link {
 </div>
 
 </div>
-
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Saving-data-by-diopy">Saving data by diopy<a class="anchor-link" href="#Saving-data-by-diopy">&#182;</a></h1>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata_sce</span> <span class="o">=</span> <span class="n">diopy</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">read_h5</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_dior_sce.h5&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
-<span class="n">adata_sce</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># diopy.output.write_h5(adata, &#39;./adata_from_scanpy1_4_3.h5&#39;, save_graph=True,save_X=False)</span>
+<span class="n">diopy</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">write_h5</span><span class="p">(</span><span class="n">adata_sample</span><span class="p">,</span> <span class="s1">&#39;./adata_from_scanpy1_4_3.h5&#39;</span><span class="p">,</span> <span class="n">save_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">save_X</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14746,17 +15269,164 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/conda/lib/python3.8/site-packages/diopy/output.py:242: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe. 
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if np.issubdtype(cate_dtype, np.object):
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;./adata_from_scanpy1_4_3.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:1326: FutureWarning: is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+  and not is_categorical(df[key])
+/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:108: FutureWarning: is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+  elif is_categorical(df[k]):
+/opt/conda/lib/python3.8/site-packages/anndata/core/anndata.py:101: FutureWarning: is_categorical is deprecated and will be removed in a future version.  Use is_categorical_dtype instead
+  if is_string_dtype(df[k]) and not is_categorical(df[k]):
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Reading-data-by-diopy">Reading data by diopy<a class="anchor-link" href="#Reading-data-by-diopy">&#182;</a></h1>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata_r</span> <span class="o">=</span> <span class="n">diopy</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">read_h5</span><span class="p">(</span><span class="s1">&#39;./adata_from_scanpy1_4_3.h5&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/opt/conda/lib/python3.8/site-packages/diopy/input.py:493: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe. 
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  assayname = np.array(h5.attrs[&#39;assay_name&#39;].astype(&#39;str&#39;).tolist(), dtype=np.object)
+/opt/conda/lib/python3.8/site-packages/diopy/input.py:132: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe. 
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  to_dict[&#39;index&#39;] = h5df[&#39;index&#39;][()].astype(str).astype(np.object)
+/opt/conda/lib/python3.8/site-packages/diopy/input.py:135: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe. 
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if np.array(h5df[i].attrs[&#39;origin_dtype&#39;]).astype(str).astype(np.object) == &#39;category&#39;:
+/opt/conda/lib/python3.8/site-packages/diopy/input.py:143: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe. 
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if np.array(h5df[i].attrs[&#39;origin_dtype&#39;]).astype(str).astype(np.object) == &#39;string&#39;:
+/opt/conda/lib/python3.8/site-packages/diopy/input.py:151: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe. 
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if np.array(h5df[i].attrs[&#39;origin_dtype&#39;]).astype(str).astype(np.object) == &#39;bool&#39;:
+/opt/conda/lib/python3.8/site-packages/diopy/input.py:154: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe. 
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  if np.array(h5df[i].attrs[&#39;origin_dtype&#39;]).astype(str).astype(np.object) == &#39;number&#39;:
+/opt/conda/lib/python3.8/site-packages/diopy/input.py:160: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe. 
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  cnames = h5df[&#39;colnames&#39;][()].astype(str).astype(np.object)
+/opt/conda/lib/python3.8/site-packages/diopy/input.py:139: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe. 
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  lvl = h5df[&#39;category&#39;][i][()].astype(str).astype(np.object)
+/opt/conda/lib/python3.8/site-packages/diopy/input.py:147: DeprecationWarning: `np.object` is a deprecated alias for the builtin `object`. To silence this warning, use `object` by itself. Doing this will not modify any behavior and is safe. 
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  lvl = h5df[&#39;category&#39;][i][()].astype(str).astype(np.object)
+/opt/conda/lib/python3.8/site-packages/diopy/input.py:153: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  to_dict[i] = e0.astype(np.bool)
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata_r</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>AnnData object with n_obs × n_vars = 100 × 27998
-    obs: &#39;clusters_coarse&#39;, &#39;clusters&#39;, &#39;S_score&#39;, &#39;G2M_score&#39;
-    var: &#39;highly_variable_genes&#39;
+<pre>AnnData object with n_obs × n_vars = 20 × 10 
+    obs: &#39;n_genes&#39;, &#39;percent_mito&#39;, &#39;n_counts&#39;
+    var: &#39;gene_ids&#39;, &#39;feature_types&#39;, &#39;n_cells&#39;, &#39;highly_variable&#39;, &#39;means&#39;, &#39;dispersions&#39;, &#39;dispersions_norm&#39;
+    uns: &#39;neighbors&#39;
     obsm: &#39;X_pca&#39;, &#39;X_umap&#39;
-    layers: &#39;spliced&#39;, &#39;unspliced&#39;</pre>
+    varm: &#39;PCs&#39;</pre>
 </div>
 
 </div>
@@ -14773,7 +15443,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">IPython</span>
@@ -14820,10 +15490,16 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip freeze
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>conda list <span class="p">|</span> grep scanpy
+<span class="o">!</span>conda list <span class="p">|</span> grep diopy
+<span class="o">!</span>conda list <span class="p">|</span> grep h5py
+<span class="o">!</span>conda list <span class="p">|</span> grep anndata
+<span class="o">!</span>conda list <span class="p">|</span> grep pandas
+<span class="o">!</span>conda list <span class="p">|</span> grep numpy
+<span class="o">!</span>conda list <span class="p">|</span> grep scipy
 </pre></div>
 
      </div>
@@ -14843,160 +15519,14 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>alembic @ file:///home/conda/feedstock_root/build_artifacts/alembic_1633571415941/work
-anndata==0.7.8
-anyio @ file:///home/conda/feedstock_root/build_artifacts/anyio_1634574557707/work/dist
-argon2-cffi @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi_1633990442615/work
-arrow==1.1.1
-async-generator==1.10
-attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1620387926260/work
-Babel @ file:///home/conda/feedstock_root/build_artifacts/babel_1619719576210/work
-backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
-backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
-bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1629908509068/work
-blinker==1.4
-brotlipy==0.7.0
-certifi==2021.10.8
-certipy==0.1.3
-cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1625835293160/work
-chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1610093490430/work
-charset-normalizer @ file:///home/conda/feedstock_root/build_artifacts/charset-normalizer_1626371162869/work
-click==8.0.3
-colorama @ file:///home/conda/feedstock_root/build_artifacts/colorama_1602866480661/work
-conda==4.10.3
-conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1618231394280/work
-cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1634230276575/work
-custom-inherit==2.3.2
-cycler @ file:///home/conda/feedstock_root/build_artifacts/cycler_1635519461629/work
-debugpy @ file:///home/conda/feedstock_root/build_artifacts/debugpy_1627074852499/work
-decorator @ file:///home/conda/feedstock_root/build_artifacts/decorator_1631346842025/work
-defusedxml @ file:///home/conda/feedstock_root/build_artifacts/defusedxml_1615232257335/work
-diopy==0.5.2
-entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1602701739019/work/dist/entrypoints-0.3-py2.py3-none-any.whl
-fbpca==1.0
-greenlet @ file:///home/conda/feedstock_root/build_artifacts/greenlet_1632928147418/work
-h5py==3.5.0
-idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1609836280497/work
-igraph @ file:///home/conda/feedstock_root/build_artifacts/python-igraph_1635510748377/work
-importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1630267471994/work
-importlib-resources @ file:///home/conda/feedstock_root/build_artifacts/importlib_resources_1634604939720/work
-ipykernel @ file:///home/conda/feedstock_root/build_artifacts/ipykernel_1634726336619/work/dist/ipykernel-6.4.2-py3-none-any.whl
-ipython @ file:///home/conda/feedstock_root/build_artifacts/ipython_1632763767549/work
-ipython-genutils==0.2.0
-ipywidgets @ file:///home/conda/feedstock_root/build_artifacts/ipywidgets_1631590360471/work
-jedi @ file:///home/conda/feedstock_root/build_artifacts/jedi_1610146791023/work
-Jinja2 @ file:///home/conda/feedstock_root/build_artifacts/jinja2_1633656206378/work
-joblib @ file:///home/conda/feedstock_root/build_artifacts/joblib_1633637554808/work
-json5 @ file:///home/conda/feedstock_root/build_artifacts/json5_1600692310011/work
-jsonschema @ file:///home/conda/feedstock_root/build_artifacts/jsonschema_1634752161479/work
-jupyter @ file:///home/conda/feedstock_root/build_artifacts/jupyter_1611871900135/work
-jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1633454794268/work
-jupyter-console @ file:///home/conda/feedstock_root/build_artifacts/jupyter_console_1616560109969/work
-jupyter-core @ file:///home/conda/feedstock_root/build_artifacts/jupyter_core_1631852756538/work
-jupyter-server @ file:///home/conda/feedstock_root/build_artifacts/jupyter_server_1633398189934/work
-jupyter-telemetry @ file:///home/conda/feedstock_root/build_artifacts/jupyter_telemetry_1605173804246/work
-jupyterhub @ file:///home/conda/feedstock_root/build_artifacts/jupyterhub-feedstock_1626468615117/work
-jupyterlab @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_1634741878908/work
-jupyterlab-pygments @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_pygments_1601375948261/work
-jupyterlab-server @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_server_1632590716858/work
-jupyterlab-widgets @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_widgets_1631590465624/work
-kiwisolver @ file:///home/conda/feedstock_root/build_artifacts/kiwisolver_1635836691365/work
-leidenalg==0.8.8
-llvmlite==0.34.0
-loompy==3.0.6
-Mako @ file:///home/conda/feedstock_root/build_artifacts/mako_1629523042001/work
-mamba @ file:///home/conda/feedstock_root/build_artifacts/mamba_1634161552529/work
-MarkupSafe @ file:///home/conda/feedstock_root/build_artifacts/markupsafe_1621455677251/work
-matplotlib @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-suite_1632416634429/work
-matplotlib-inline @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1631080358261/work
-mistune @ file:///home/conda/feedstock_root/build_artifacts/mistune_1624941302223/work
-mock @ file:///home/conda/feedstock_root/build_artifacts/mock_1635819534735/work
-natsort==8.0.0
-nbclassic @ file:///home/conda/feedstock_root/build_artifacts/nbclassic_1631880505492/work
-nbclient @ file:///home/conda/feedstock_root/build_artifacts/nbclient_1629120697898/work
-nbconvert @ file:///home/conda/feedstock_root/build_artifacts/nbconvert_1632535919595/work
-nbformat @ file:///home/conda/feedstock_root/build_artifacts/nbformat_1617383142101/work
-nest-asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1617163391303/work
-networkit==9.0
-networkx==2.6.3
-nmslib==2.1.1
-notebook @ file:///home/conda/feedstock_root/build_artifacts/notebook_1634668519289/work
-numba==0.51.2
-numexpr @ file:///home/conda/feedstock_root/build_artifacts/numexpr_1636286771429/work
-numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1636145332760/work
-numpy-groupies==0.9.14
-oauthlib @ file:///home/conda/feedstock_root/build_artifacts/oauthlib_1622563202229/work
-olefile @ file:///home/conda/feedstock_root/build_artifacts/olefile_1602866521163/work
-packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1625323647219/work
-pamela==1.0.0
-pandas==1.3.4
-pandocfilters @ file:///home/conda/feedstock_root/build_artifacts/pandocfilters_1631603243851/work
-parso @ file:///home/conda/feedstock_root/build_artifacts/parso_1617148930513/work
-patsy @ file:///home/conda/feedstock_root/build_artifacts/patsy_1632667180946/work
-pexpect==4.8.0
-pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602535658641/work
-Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1636558800772/work
-prometheus-client @ file:///home/conda/feedstock_root/build_artifacts/prometheus_client_1622586138406/work
-prompt-toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1634921890410/work
-ptyprocess @ file:///home/conda/feedstock_root/build_artifacts/ptyprocess_1609419310487/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
-pybind11==2.6.1
-pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1610094800877/work
-pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
-pycurl==7.44.1
-Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1629119114968/work
-PyJWT @ file:///home/conda/feedstock_root/build_artifacts/pyjwt_1634405536383/work
-pynndescent==0.5.5
-pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1633192417276/work
-pyparsing==2.4.7
-pypng==0.0.20
-PyQt5==5.12.3
-PyQt5_sip==4.19.18
-PyQtChart==5.12
-PyQtWebEngine==5.12.1
-pyrsistent @ file:///home/conda/feedstock_root/build_artifacts/pyrsistent_1610146798212/work
-PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1610291447907/work
-python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
-python-json-logger @ file:///home/conda/feedstock_root/build_artifacts/python-json-logger_1602545356084/work
-pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1633452062248/work
-pyzmq @ file:///home/conda/feedstock_root/build_artifacts/pyzmq_1631793296765/work
-qtconsole @ file:///home/conda/feedstock_root/build_artifacts/qtconsole_1636431521760/work
-QtPy @ file:///home/conda/feedstock_root/build_artifacts/qtpy_1632440819550/work
-reportlab==3.6.1
-requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1626393743643/work
-requests-unixsocket==0.2.0
-ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1611943339799/work
-ruamel.yaml @ file:///home/conda/feedstock_root/build_artifacts/ruamel.yaml_1630314079431/work
-ruamel.yaml.clib @ file:///home/conda/feedstock_root/build_artifacts/ruamel.yaml.clib_1610146840614/work
-scanpy==1.8.1
-scikit-learn @ file:///home/conda/feedstock_root/build_artifacts/scikit-learn_1635240676030/work
-scipy @ file:///home/conda/feedstock_root/build_artifacts/scipy_1636410384154/work
-scvelo==0.2.4
-seaborn @ file:///home/conda/feedstock_root/build_artifacts/seaborn-split_1629095986539/work
-Send2Trash @ file:///home/conda/feedstock_root/build_artifacts/send2trash_1628511208346/work
-sinfo==0.3.4
-six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
-sniffio @ file:///home/conda/feedstock_root/build_artifacts/sniffio_1610318319305/work
-SQLAlchemy @ file:///home/conda/feedstock_root/build_artifacts/sqlalchemy_1634703857718/work
-statsmodels @ file:///home/conda/feedstock_root/build_artifacts/statsmodels_1636437173133/work
-stdlib-list==0.8.0
-tables @ file:///home/conda/feedstock_root/build_artifacts/pytables_1630027033879/work
-terminado @ file:///home/conda/feedstock_root/build_artifacts/terminado_1631128159040/work
-testpath @ file:///home/conda/feedstock_root/build_artifacts/testpath_1621261527237/work
-texttable @ file:///home/conda/feedstock_root/build_artifacts/texttable_1626204417032/work
-threadpoolctl @ file:///home/conda/feedstock_root/build_artifacts/threadpoolctl_1633102299089/work
-tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_1610094706440/work
-toyplot==0.19.0
-tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1632160078689/work
-traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1630423529112/work
-typing-extensions==3.10.0.2
-umap-learn==0.5.2
-urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1632350318291/work
-wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
-webencodings==0.5.1
-websocket-client @ file:///home/conda/feedstock_root/build_artifacts/websocket-client_1610127644879/work
-widgetsnbextension @ file:///home/conda/feedstock_root/build_artifacts/widgetsnbextension_1635456203523/work
-xlrd==1.2.0
-zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1633302054558/work
+<pre>scanpy                    1.4.3                    pypi_0    pypi
+diopy                     0.5.2                    pypi_0    pypi
+h5py                      3.5.0                    pypi_0    pypi
+anndata                   0.6.22                   pypi_0    pypi
+pandas                    1.3.4            py38h43a58ef_1    conda-forge
+numpy                     1.21.4           py38he2449b9_0    conda-forge
+numpy-groupies            0.9.14                   pypi_0    pypi
+scipy                     1.5.3            py38h828c644_0    conda-forge
 </pre>
 </div>
 </div>

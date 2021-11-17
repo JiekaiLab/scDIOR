@@ -1,5 +1,8 @@
+
+
 # scDIOR
-scDIOR: Single cell data RNA IO softwaRe
+
+scDIOR: Single cell RNA-seq  Data IO softwaRe
 
 <br>
 
@@ -58,6 +61,8 @@ scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. T
 
 
 ### Operating Environment
+
+
 
 **1. Docker image (recommended) :**
 
@@ -136,50 +141,17 @@ Here, we list the three specific examples and the extended function to show the 
 <div id="3.1"></div>
 
 
-### Starting environment (for docker image)
+### Starting docker image 
 
-1. **Remote server **
+Pulling the scDIOR image by `docker pull jiekailab/scdior-image`.
 
-   1. Logining server through `ssh L`
 
-   ```shell
-   ssh -L localhost:port1:localhost:port2 user@remote_ip
-   # port1: local port
-   # prot2: remote port
-   # user: remote sever user id
-   # remote_ip: remote severip
-   ```
 
-   2. Starting container of scDIOR image
+1. **Local computer**
 
-   ```shell
-   IMG=hjfeng/scdior_image:1.2 
-   PORT=port2 # port2
-   PROJECT=scdior
-   MEMORY=64g 
-   CWD=$(docker inspect $IMG | grep WorkingDir | head -n 1 | sed 's/.* "//;s/"//g;s/,//g') 
-   docker run -p $PORT:8888 \
-           --name $PROJECT \
-           -m $MEMORY \
-           -u $(id -u):$(id -g) \
-           -e JUPYTER_ENABLE_LAB=yes \
-           -e JUPYTER_TOKEN=1234 \
-           -v $PWD:$CWD \
-           --rm \
-           -it $IMG
-   ```
+   Starting the container of scDIOR image
 
-   3. Starting jupyter in user's  browser 
-
-   ```shell
-   localhost:port1
-   ```
-
-2. **Local computer**
-
-   1. Staring the container of scDIOR image
-
-   ```shell
+   ```sh
    IMG=hjfeng/scdior_image:1.2 # 1. 指定使用的镜像
    PORT=port1# port2
    PROJECT=scdior
@@ -196,8 +168,57 @@ Here, we list the three specific examples and the extended function to show the 
            -it $IMG
    ```
 
-   2. Starting jupyter in user's  browser 
+   
 
+2. 
+
+
+
+1. **Remote server **
+
+   1.  Logging in  server through `ssh -L`
+
+   ```shell
+   ssh -L localhost:port1:localhost:port2 user@remote_ip
+   # user: remote sever user id
+   # remote_ip: remote severip
+   ```
+   
+   2. Starting container of scDIOR image
+
+   ```shell
+IMG=jiekailab/scdior-image:Seurat4.0.5_Scanpy1.8.1
+   PORT=port2 # port2
+   PROJECT=scdior
+   MEMORY=64g 
+   CWD=$(docker inspect $IMG | grep WorkingDir | head -n 1 | sed 's/.* "//;s/"//g;s/,//g') 
+   docker run -p $PORT:8888 \
+           --name $PROJECT \
+           -m $MEMORY \
+           -u $(id -u):$(id -g) \
+           -e JUPYTER_ENABLE_LAB=yes \
+           -e JUPYTER_TOKEN=1234 \
+           -v $PWD:$CWD \
+           --rm \
+           -it $IMG
+   ```
+   
+   3. Starting jupyter in user's  browser 
+
+   ```shell
+localhost:port1
+   ```
+   
+2. **Local computer**
+
+   1. 
+
+   ```shell
+   
+   ```
+   
+   2. Starting jupyter in user's  browser 
+   
    ```shell
    localhost:port1
    ```
