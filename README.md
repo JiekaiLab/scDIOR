@@ -198,8 +198,6 @@ Pulling the scDIOR image by `docker pull jiekailab/scdior-image`.
 
 The environment is  activated by `conda activate`.
 
-
-
 1. **Local computer**
 
    1. Activating conda environment
@@ -223,7 +221,7 @@ The environment is  activated by `conda activate`.
 
    
 
-2. Remote server **
+2. **Remote server**
 
    1.  Logging in  server through `ssh -L`
 
