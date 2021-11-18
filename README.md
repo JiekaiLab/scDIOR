@@ -16,35 +16,21 @@ scDIOR: Single cell RNA-seq  Data IO softwaRe
       * [1. Docker image](#2.1)
       * [2. Conda environment](#2.2)
       * [Version control](#2.3)
-   * [Getting started](#3)
-      * [Starting environment (for docker image)](#3.1)
-      * [R loading packages](#3.2)
-      * [Python loading packages](#3.3)
-   * [Example A](#4)
-      * [Loading data with `scvelo` in `Python`](#4.1)
-      * [Saving data with `diopy` in `Python`](#4.2)
-      * [Loading data with`dior` in `R`](#4.3)
-      * [Saving data with`dior` in `R`](#4.4)
-      * [Loading `cds_trajectory.h5` with `diopy` in `Python`](#4.5)
-   * [Example B](#5)
-      * [Loading data with `diopy`in `Python`](#5.1)
-      * [Saving data with `diopy` in `Python`](#5.2)
-      * [Loading data with`dior` in `R`](#5.3)
-   * [Example C](#6)
-      * [Loading data from 10X Genomics Spatial Datasets](#6.1)
-      * [Saving data by `diopy` in `Python`](#6.2)
-      * [Loading data by `dior` in `R`](#6.3)
-      * [Saving data by `dior` in `R`](#6.4)
-   * [scDIOR extended function](#7)
-      * [scDIOR read h5ad file](#7.1)
-      * [scDIOR read rds file](#7.2)
-      * [scDIOR command line](#7.3)
-   * [The scripts link of dior and diopy](#8)
-   * [Reference websites](#9)
+   * [Operation Environment ](#3)
+      * [Docker image](#3.1)
+      * [Conda environment](#3.2)
+   * [scDIOR demo](#4)
+      * [1. Comparison of trajectory inferences](#4.1)
+      * [2. Data IO for batch correction](#4.2)
+      * [3. Data IO for spatial omics data](#4.3)
+      * [4. Extended function](#4.4)
+   * [Reference websites](#5)
 
 ___
 
 <div id="1"></div>
+
+
 
 ## Overview  [![top](Figures/top.jpg)](#0)
 
@@ -54,12 +40,16 @@ scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. T
 
 <div id="2"></div>
 
+
+
 ## Installing scDIOR[![top](Figures/top.jpg)](#0)
 
 Users install and  operate scDIOR following two ways:
 
 1. Docker images are available on the [jiekailab/scdior-image](https://hub.docker.com/r/jiekailab/scdior-image).
 2. The environment is created by `conda create` in which scDIOR is installed.
+
+<div id="2.1"></div>
 
 
 
@@ -81,6 +71,10 @@ The current latest image contains the following main analysis platforms and soft
 | SingleCellExperiment | 1.12.0  | scvelo  | 0.2.3   |
 | monocle3             | 1.0.0   | anndata | 0.7.6   |
 | dior                 | 0.1.5   | diopy   | 0.5.2   |
+
+<div id="2.2"></div>
+
+
 
 ### 2. Conda environment
 
@@ -106,7 +100,10 @@ devtools::install_github('JiekaiLab/dior')
 pip install diopy
 ```
 
-<div id="2.2"></div>
+<div id="2.3"></div>
+
+
+
 ### Version control
 
  At present, scDIOR is widely compatible with Seurat (v3\~v4) and Scanpy (1.4\~1.8) in different docker image. We configured multiple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.
@@ -120,13 +117,21 @@ pip install diopy
 
 ____
 
+<div id="3"></div>
+
 
 
 ##  Operation Environment 
 
+<div id="3.1"></div>
+
+
+
 ### 1. Docker image
 
 Pulling the scDIOR image by `docker pull jiekailab/scdior-image`.
+
+
 
 1. **Local computer**
 
@@ -147,6 +152,8 @@ Pulling the scDIOR image by `docker pull jiekailab/scdior-image`.
    ```shell
    localhost:8840
    ```
+
+   
 
 2. **Remote server **
 
@@ -183,11 +190,15 @@ Pulling the scDIOR image by `docker pull jiekailab/scdior-image`.
    localhost:8840
    ```
 
+<div id="3.2"></div>
+
 
 
 ### 2. Conda environment
 
 The environment is  activated by `conda activate`.
+
+
 
 1. **Local computer**
 
@@ -210,7 +221,9 @@ The environment is  activated by `conda activate`.
    localhost:8840
    ```
 
-2. **Remote server **
+   
+
+2. Remote server **
 
    1.  Logging in  server through `ssh -L`
 
@@ -239,11 +252,15 @@ The environment is  activated by `conda activate`.
    localhost:8840
    ```
 
+<div id="4"></div>
+
 
 
 ## scDIOR demo[![top](Figures/top.jpg)](#0)
 
 Here, we list several demos to show the powerful performance of scDIOR.
+
+<div id="4.1"></div>
 
 
 
@@ -255,6 +272,10 @@ Users can perform trajectory analysis using Monocle3 in R, then transform the si
 
 ![1.trajectory_inference](Figures/1.trajectory_inference.png)
 
+<div id="4.2"></div>
+
+
+
 ### 2. Data IO for batch correction
 
 User can employ single-cell data preprocess and normalization method provided by Scanpy, and utilize batches correction method provided by Seurat.
@@ -263,6 +284,10 @@ User can employ single-cell data preprocess and normalization method provided by
 
 ![batch_correct](Figures/batch_correct.png)
 
+<div id="4.3"></div>
+
+
+
 ### 3. Data IO for spatial omics data
 
 scDIOR supports spatial omics data IO between R and Python platforms.
@@ -270,6 +295,10 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 [Demo link](https://github.com/JiekaiLab/scDIOR/tree/main/scdior_demo/Seurat4.0.5_Scanpy1.8.1/3.spatial_analysis)
 
 ![sptail_summary](Figures/sptail_summary.png)
+
+<div id="4.4"></div>
+
+
 
 ### 4. Extended function
 
@@ -280,6 +309,8 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 [Demo link](https://github.com/JiekaiLab/scDIOR/tree/main/scdior_demo/Seurat4.0.5_Scanpy1.8.1/4.scDIOR_extended_function)
 
 ![extend_function](Figures/extend_function.png)
+
+<div id="5"></div>
 
 
 
