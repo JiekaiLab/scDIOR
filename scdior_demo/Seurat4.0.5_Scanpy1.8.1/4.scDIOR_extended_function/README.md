@@ -1,6 +1,8 @@
 ## scDIOR extended function
 
-
+1. The function to load ‘.rds’ file in Python directly;
+2. The function to load ‘.h5ad’ file in R directly;
+3. Command line  
 
 ## Link
 

@@ -267,7 +267,7 @@ User can employ single-cell data preprocess and normalization method provided by
 
 scDIOR supports spatial omics data IO between R and Python platforms.
 
-[Demo link](https://github.com/fenghuijian/fenghuijian.github.io/tree/master/doc/scdior_demo/Seurat4.0.5_Scanpy1.8.1/3.spatial_analysis)
+[Demo link](https://github.com/JiekaiLab/scDIOR/tree/main/scdior_demo/Seurat4.0.5_Scanpy1.8.1/3.spatial_analysis)
 
 ![sptail_summary](Figures/sptail_summary.png)
 
@@ -277,7 +277,7 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 2. The function to load ‘.h5ad’ file in R directly;
 3. Command line  
 
-[Demo link](https://github.com/fenghuijian/fenghuijian.github.io/tree/master/doc/scdior_demo/Seurat4.0.5_Scanpy1.8.1/4.scDIOR_extended_function)
+[Demo link](https://github.com/JiekaiLab/scDIOR/tree/main/scdior_demo/Seurat4.0.5_Scanpy1.8.1/4.scDIOR_extended_function)
 
 ![extend_function](Figures/extend_function.png)
 
