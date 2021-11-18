@@ -8,7 +8,11 @@
 
 [4.1.extended_function_in_Python](https://fenghuijian.github.io/doc/scdior_demo/Seurat4.0.5_Scanpy1.8.1/4.scDIOR_extended_function/4.1.extended_function_in_Python.html)
 
-shows that the function of  Pratial extraction  and Loading rds file in Python.  [4.2.extended_function_in_R](https://fenghuijian.github.io/doc/scdior_demo/Seurat4.0.5_Scanpy1.8.1/4.scDIOR_extended_function/4.2.extended_function_in_R.html)
+shows that the function of  Pratial extraction  and Loading rds file in Python.  
+
+
+
+[4.2.extended_function_in_R](https://fenghuijian.github.io/doc/scdior_demo/Seurat4.0.5_Scanpy1.8.1/4.scDIOR_extended_function/4.2.extended_function_in_R.html)
 
 shows that the function of  Pratial extraction and Loading h5ad file in R.
 

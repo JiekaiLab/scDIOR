@@ -319,5 +319,6 @@ scDIOR supports spatial omics data IO between R and Python platforms.
    2. https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html
 2. fixuid: https://github.com/boxboat/fixuid
 3. Seurat: https://satijalab.org/seurat/index.html
-4. Scanpy: https://scanpy.readthedocs.io/en/stable/index.html
-5. Scvelo: https://scanpy.readthedocs.io/en/stable/index.html
+4. monocle3:https://cole-trapnell-lab.github.io/monocle3/
+5. Scanpy: https://scanpy.readthedocs.io/en/stable/index.html
+6. Scvelo: https://scanpy.readthedocs.io/en/stable/index.html
