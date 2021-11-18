@@ -251,15 +251,15 @@ Users can perform trajectory analysis using Monocle3 in R, then transform the si
 
 [Demo link](https://github.com/JiekaiLab/scDIOR/tree/main/scdior_demo/Seurat4.0.5_Scanpy1.8.1/1.trajectory_inference)
 
+![1.trajectory_inference](Figures/1.trajectory_inference.png)
 
-
-### 2. Batch correction
+### 2. Data IO for batch correction
 
 User can employ single-cell data preprocess and normalization method provided by Scanpy, and utilize batches correction method provided by Seurat.
 
-[Demo link]()
+[Demo link](https://github.com/JiekaiLab/scDIOR/tree/main/scdior_demo/Seurat4.0.5_Scanpy1.8.1/2.batch_correction)
 
-
+![batch_correct](Figures/batch_correct.png)
 
 ### 3. Spatial omics data
 
@@ -267,7 +267,7 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 
 [Demo link]()
 
-
+![sptail_summary](Figures/sptail_summary.png)
 
 ### 4. Extended function
 
