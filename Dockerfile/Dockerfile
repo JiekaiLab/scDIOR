@@ -1,4 +1,4 @@
-FROM hjfeng/base-jupyter-notebook:1.1 
+FROM jiekailab/scdior-image:base-jupyter-notebook1.0
 # this base iamge is from docker hub jiekailab/scdior-image:base-jupyter-notebook1.0
 # https://hub.docker.com/repository/docker/jiekailab/scdior-image
 ARG DEBIAN_FRONTEND=noninteractive 
