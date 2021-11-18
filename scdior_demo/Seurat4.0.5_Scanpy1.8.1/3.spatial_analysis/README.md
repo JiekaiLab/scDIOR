@@ -74,7 +74,6 @@ sc.pl.spatial(adata, img_key="hires", color=["clusters", "CR2"], save='.spatial_
 ![spatail_analysis_by_scanpy](Figures/spatail_analysis_by_scanpy.png)
 
 <div id="6.2"></div>
-
 ### Saving data with`diopy` in `Python`
 
 ```python
@@ -85,7 +84,6 @@ diopy.output.write_h5(adata=adata,
 ```
 
 <div id="6.3"></div>
-
 ### Loading data with `dior` in `R`
 
 ```R
@@ -118,7 +116,6 @@ SpatialFeaturePlot(adata,
 ![r_spatial_gene_cr2](Figures/r_spatial_gene_cr2.jpg)
 
 <div id="6.4"></div>
-
 ### Saving data with `dior` in `R`
 
 ```R
@@ -136,5 +133,4 @@ adata = diopy.input.read_h5(file = './adata_fig3c.h5',
                             assay_name='spatial')
 ```
 
-
-
+[![homepage](Figures/homepage.png)](https://github.com/JiekaiLab/scDIOR)

@@ -73,7 +73,6 @@ adata
 ```
 
 <div id="7.3"></div>
-
 ### scDIOR command line
 
  ScDIOR uses the command line to convert different data by calling `scdior`.  
@@ -135,3 +134,4 @@ adata
 #     obsp: 'connectivities', 'distances'
 ```
 
+[![homepage](Figures/homepage.png)](https://github.com/JiekaiLab/scDIOR)

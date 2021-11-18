@@ -171,3 +171,4 @@ sc.pl.umap(adata, color=['batch', 'celltype'])
 
 ![batch_visualazation_in_scanpy](Figures/batch_visualazation_in_scanpy.png)
 
+[![homepage](Figures/homepage.png)](https://github.com/JiekaiLab/scDIOR)
