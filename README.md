@@ -31,15 +31,13 @@ ___
 <div id="1"></div>
 
 
-
 ## Overview  [![top](Figures/top.jpg)](#0)
 
 scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. The data conversion was implemented by a ‘.h5’ file of [HDF5](https://www.hdfgroup.org/) format, which harmonizes the different data types between R and Python. The different aspects of single-cell information were stored in HDF5 group with dataset. scDIOR creates 8 HDF5 groups to store core single-cell information, including data, layers, obs, var, dimR, graphs, uns and spatial.   
 
-![overview](Figures/overview.jpg)
+![overview](Figures/overview.png)
 
 <div id="2"></div>
-
 
 
 ## Installing scDIOR[![top](Figures/top.jpg)](#0)
@@ -50,7 +48,6 @@ Users install and  operate scDIOR following two ways:
 2. The environment is created by `conda create` in which scDIOR is installed.
 
 <div id="2.1"></div>
-
 
 
 ### 1. Docker image
@@ -73,7 +70,6 @@ The current latest image contains the following main analysis platforms and soft
 | dior                 | 0.1.5   | diopy   | 0.5.2   |
 
 <div id="2.2"></div>
-
 
 
 ### 2. Conda environment
@@ -103,7 +99,6 @@ pip install diopy
 <div id="2.3"></div>
 
 
-
 ### Version control
 
  At present, scDIOR is widely compatible with Seurat (v3\~v4) and Scanpy (1.4\~1.8) in different docker image. We configured multiple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.
@@ -120,11 +115,9 @@ ____
 <div id="3"></div>
 
 
-
 ##  Operation Environment 
 
 <div id="3.1"></div>
-
 
 
 ### 1. Docker image
@@ -193,7 +186,6 @@ Pulling the scDIOR image by `docker pull jiekailab/scdior-image`.
 <div id="3.2"></div>
 
 
-
 ### 2. Conda environment
 
 The environment is  activated by `conda activate`.
@@ -250,8 +242,9 @@ The environment is  activated by `conda activate`.
    localhost:8840
    ```
 
-<div id="4"></div>
+___
 
+<div id="4"></div>
 
 
 ## scDIOR demo[![top](Figures/top.jpg)](#0)
@@ -259,7 +252,6 @@ The environment is  activated by `conda activate`.
 Here, we list several demos to show the powerful performance of scDIOR.
 
 <div id="4.1"></div>
-
 
 
 ### 1. Comparison of trajectory inferences
@@ -273,7 +265,6 @@ Users can perform trajectory analysis using Monocle3 in R, then transform the si
 <div id="4.2"></div>
 
 
-
 ### 2. Data IO for batch correction
 
 User can employ single-cell data preprocess and normalization method provided by Scanpy, and utilize batches correction method provided by Seurat.
@@ -283,7 +274,6 @@ User can employ single-cell data preprocess and normalization method provided by
 ![batch_correct](Figures/batch_correct.png)
 
 <div id="4.3"></div>
-
 
 
 ### 3. Data IO for spatial omics data
@@ -297,7 +287,6 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 <div id="4.4"></div>
 
 
-
 ### 4. Extended function
 
 1. The function to load ‘.rds’ file in Python directly;
@@ -308,8 +297,9 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 
 ![extend_function](Figures/extend_function.png)
 
-<div id="5"></div>
+___
 
+<div id="5"></div>
 
 
 ## Reference websites [![top](Figures/top.jpg)](#0)
