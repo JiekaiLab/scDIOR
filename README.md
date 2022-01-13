@@ -13,8 +13,8 @@ scDIOR: Single cell RNA-seq  Data IO softwaRe
 * scDIOR
    * [Overview](#1)
    * [Installing scDIOR](#2)
-      * [1.  Conda environment](#2.1)
-      * [2.Docker image](#2.2)
+      * [1. Conda environment](#2.1)
+      * [2. Docker image](#2.2)
       * [Version control](#2.3)
    * [Operation Environment ](#3)
       * [Docker image](#3.1)
