@@ -26,13 +26,13 @@ scDIOR: Single cell RNA-seq  Data IO softwaRe
 ___
 
 <div id="1"></div>
-## Overview  [![top](Figures/top.jpg)](#0)
+## Overview[![top](Figures/top.jpg)](#0)
 
 scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. The data conversion was implemented by a ‘.h5’ file of [HDF5](https://www.hdfgroup.org/) format, which harmonizes the different data types between R and Python. The different aspects of single-cell information were stored in HDF5 group with dataset. scDIOR creates 8 HDF5 groups to store core single-cell information, including data, layers, obs, var, dimR, graphs, uns and spatial.   
 
 ![overview](Figures/overview.png)
 
-Our article:  https://doi.org/10.1186/s12859-021-04528-3 
+**Our article:**  https://doi.org/10.1186/s12859-021-04528-3 
 
 <div id="2"></div>
 ## Installing scDIOR[![top](Figures/top.jpg)](#0)
