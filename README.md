@@ -51,6 +51,8 @@ Users install and  operate scDIOR following two ways:
 2. Docker images are available on the [jiekailab/scdior-image](https://hub.docker.com/r/jiekailab/scdior-image).
 
 <div id="2.1"></div>
+
+
 ### 1. Conda environment
 
 The environment is created by `conda create` in which dior and diopy are installed.
@@ -76,6 +78,8 @@ pip install diopy
 ```
 
 <div id="2.2"></div>
+
+
 ### 2. Docker image
 
 It is recommend to perform scDIOR in docker image, which ensures that the operating environment remains stable. scDIOR image is available on the [jiekailab/scdior-image](https://hub.docker.com/r/jiekailab/scdior-image).
@@ -96,6 +100,8 @@ The current latest image contains the following main analysis platforms and soft
 | dior                 | 0.1.5   | diopy   | 0.5.2   |
 
 <div id="2.3"></div>
+
+
 ### Version control
 
  At present, scDIOR is widely compatible with Seurat (v3\~v4) and Scanpy (1.4\~1.8) in different docker image. We configured multiple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.
