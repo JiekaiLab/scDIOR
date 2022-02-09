@@ -32,6 +32,8 @@ scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. T
 
 ![overview](Figures/overview.png)
 
+our article: 
+
 <div id="2"></div>
 ## Installing scDIOR[![top](Figures/top.jpg)](#0)
 
