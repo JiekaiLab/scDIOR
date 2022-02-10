@@ -1,4 +1,4 @@
-
+d
 
 # scDIOR
 
@@ -28,9 +28,12 @@ ___
 <div id="1"></div>
 
 
+
 ## Overview[![top](Figures/top.jpg)](#0)
 
-scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. The data conversion was implemented by a ‘.h5’ file of [HDF5](https://www.hdfgroup.org/) format, which harmonizes the different data types between R and Python. The different aspects of single-cell information were stored in HDF5 group with dataset. scDIOR creates 8 HDF5 groups to store core single-cell information, including data, layers, obs, var, dimR, graphs, uns and spatial.   
+The scDIOR software was developed for single-cell data transformation between platforms of R and Python based on Hierarchical Data Format Version 5 ([HDF5](https://www.hdfgroup.org/)). There is a data IO ecosystem composed of two modules, [dior](https://github.com/JiekaiLab/dior)  and [diopy](https://pypi.org/project/diopy), between three R packages (Seurat, SingleCellExperiment, Monocle) and a Python package (Scanpy). 
+
+scDIOR accommodates a variety of data types across programming languages and platforms in an ultrafast way, including single-cell RNA-seq and spatial resolved transcriptomics data, using only a few codes in IDE or command line interface. 
 
 ![overview](Figures/overview.png)
 
@@ -120,6 +123,7 @@ ___
 <div id="3"></div>
 
 
+
 ## scDIOR demo[![top](Figures/top.jpg)](#0)
 
 Here, we list several demos to show the powerful performance of scDIOR.
@@ -127,21 +131,22 @@ Here, we list several demos to show the powerful performance of scDIOR.
 <div id="3.1"></div>
 
 
-### 1. Comparison of trajectory inferences
 
-**code**
+### 1. Single-cell data from R to Python
+
+Users can perform trajectory analysis using Monocle3 in R, then transform the single-cell data to Scanpy in Python using scDIOR, such as expression profiles of spliced and unspliced, as well as cell layout. The expression profile can be used to run dynamical RNA velocity analysis and results can be projected on the layout of Monocle3.
+
+**Code**
 
 ```R
 # in R
-dior::write_h5(data, file=’scdata.h5’, object.type = ‘singlecellexperiment’)
+dior::write_h5(data, file='scdata.h5' object.type = 'inglecellexperiment')
 ```
 
 ```python
 # in Python
-adata = diopy.input.read_h5(file = ‘scdata.h5’)
+adata = diopy.input.read_h5(file = 'scdata.h5')
 ```
-
-Users can perform trajectory analysis using Monocle3 in R, then transform the single-cell data to Scanpy in Python using scDIOR, such as expression profiles of spliced and unspliced, as well as cell layout. The expression profile can be used to run dynamical RNA velocity analysis and results can be projected on the layout of Monocle3.
 
 [Demo link](https://github.com/JiekaiLab/scDIOR/tree/main/scdior_demo/Seurat4.0.5_Scanpy1.8.1/1.trajectory_inference)
 
@@ -150,23 +155,22 @@ Users can perform trajectory analysis using Monocle3 in R, then transform the si
 <div id="3.2"></div>
 
 
-### 2. Data IO for batch correction
 
-**code**
+### 2. Single-cell data from Python to R
+
+Users can employ single-cell data processes and normalization method provided by Scanpy, and utilize batches correction method provided by Seurat.
+
+**Code**
 
 ```python
 # in python
-diopy.output.write_h5(data_py, file = ‘scdata.h5’)
+diopy.output.write_h5(data_py, file = 'scdata.h5')
 ```
 
 ```R
 # in R
-adata = dior::read_h5(file=’scdata.h5’, target.object = ‘seurat’)
+adata = dior::read_h5(file='scdata.h5', target.object = 'seurat')
 ```
-
-
-
-User can employ single-cell data preprocess and normalization method provided by Scanpy, and utilize batches correction method provided by Seurat.
 
 [Demo link](https://github.com/JiekaiLab/scDIOR/tree/main/scdior_demo/Seurat4.0.5_Scanpy1.8.1/2.batch_correction)
 
@@ -175,21 +179,22 @@ User can employ single-cell data preprocess and normalization method provided by
 <div id="3.3"></div>
 
 
+
 ### 3. Data IO for spatial omics data
 
-**code**
+scDIOR supports spatial omics data IO between R and Python platforms.
+
+**Code**
 
 ```R
 # in R
-dior::write_h5(data, file=’scdata.h5’, object.type = ‘singlecellexperiment’)
+dior::write_h5(data, file='scdata.h5', object.type = 'singlecellexperiment')
 ```
 
 ```python
 # in Python
-adata = diopy.input.read_h5(file = ‘scdata.h5’)
+adata = diopy.input.read_h5(file = 'scdata.h5')
 ```
-
-scDIOR supports spatial omics data IO between R and Python platforms.
 
 [Demo link](https://github.com/JiekaiLab/scDIOR/tree/main/scdior_demo/Seurat4.0.5_Scanpy1.8.1/3.spatial_analysis)
 
@@ -198,11 +203,12 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 <div id="3.4"></div>
 
 
+
 ### 4. Extended function
 
 1. The function to load ‘.rds’ file in Python directly;
 
-   **code**
+   **Code**
 
    ```python
    # in python
@@ -213,7 +219,7 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 
 2. The function to load ‘.h5ad’ file in R directly;
 
-   **code**
+   **Code**
 
    ```R
    # in R
@@ -224,7 +230,7 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 
 3. Command line  
 
-   **description**
+   **Description**
 
    ScDIOR uses the command line to convert different data by calling `scdior`.
 
@@ -240,7 +246,7 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 
    `-a,--assay_name` The primary data types, such as scRNA data or spatial data.
 
-   **code**
+   **Code**
 
    ```shell
    $ scdior -i ./adata_test.h5ad -o ./adata_test.rds -t seurat -a RNA
@@ -253,7 +259,6 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 ___
 
 <div id="4"></div>
-
 
 ## Reference websites [![top](Figures/top.jpg)](#0)
 
