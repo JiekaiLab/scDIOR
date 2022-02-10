@@ -41,6 +41,7 @@ ___
 <div id="2"></div>
 
 
+
 ## Installing scDIOR[![top](Figures/top.jpg)](#0)
 
 Users install and  operate scDIOR following two ways:
@@ -49,6 +50,8 @@ Users install and  operate scDIOR following two ways:
 2. Docker images are available on the [jiekailab/scdior-image](https://hub.docker.com/r/jiekailab/scdior-image).
 
 <div id="2.1"></div>
+
+
 
 ### 1. Conda environment
 
@@ -76,6 +79,8 @@ pip install diopy
 
 <div id="2.2"></div>
 
+
+
 ### 2. Docker image
 
 It is recommend to perform scDIOR in docker image, which ensures that the operating environment remains stable. scDIOR image is available on the [jiekailab/scdior-image](https://hub.docker.com/r/jiekailab/scdior-image).
@@ -97,6 +102,8 @@ The current latest image contains the following main analysis platforms and soft
 
 <div id="2.3"></div>
 
+
+
 ### Version control
 
  At present, scDIOR is widely compatible with Seurat (v3\~v4) and Scanpy (1.4\~1.8) in different docker image. We configured multiple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.
@@ -111,11 +118,15 @@ The current latest image contains the following main analysis platforms and soft
 ___
 
 <div id="3"></div>
+
+
 ## scDIOR demo[![top](Figures/top.jpg)](#0)
 
 Here, we list several demos to show the powerful performance of scDIOR.
 
 <div id="3.1"></div>
+
+
 ### 1. Comparison of trajectory inferences
 
 **code**
