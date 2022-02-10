@@ -28,7 +28,6 @@ ___
 <div id="1"></div>
 
 
-
 ## Overview[![top](Figures/top.jpg)](#0)
 
 scDIOR software contains two modules, [dior]() for R and [diopy]() for Python. The data conversion was implemented by a ‘.h5’ file of [HDF5](https://www.hdfgroup.org/) format, which harmonizes the different data types between R and Python. The different aspects of single-cell information were stored in HDF5 group with dataset. scDIOR creates 8 HDF5 groups to store core single-cell information, including data, layers, obs, var, dimR, graphs, uns and spatial.   
@@ -42,7 +41,6 @@ ___
 <div id="2"></div>
 
 
-
 ## Installing scDIOR[![top](Figures/top.jpg)](#0)
 
 Users install and  operate scDIOR following two ways:
@@ -51,7 +49,6 @@ Users install and  operate scDIOR following two ways:
 2. Docker images are available on the [jiekailab/scdior-image](https://hub.docker.com/r/jiekailab/scdior-image).
 
 <div id="2.1"></div>
-
 
 ### 1. Conda environment
 
@@ -79,7 +76,6 @@ pip install diopy
 
 <div id="2.2"></div>
 
-
 ### 2. Docker image
 
 It is recommend to perform scDIOR in docker image, which ensures that the operating environment remains stable. scDIOR image is available on the [jiekailab/scdior-image](https://hub.docker.com/r/jiekailab/scdior-image).
@@ -101,29 +97,38 @@ The current latest image contains the following main analysis platforms and soft
 
 <div id="2.3"></div>
 
-
 ### Version control
 
  At present, scDIOR is widely compatible with Seurat (v3\~v4) and Scanpy (1.4\~1.8) in different docker image. We configured multiple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.
 
 [Demo link](https://github.com/JiekaiLab/scDIOR/tree/main/scdior_demo/Seurat4.0.5_Scanpy1.8.1/5.version_compatibility)
 
-| Platform | Software | Version | data IO                 |
-| -------- | -------- | ------- | ----------------------- |
-| R        | Seurat   | v3~v4   | :ballot_box_with_check: |
-| Python   | Scanpy   | 1.4~1.8 | :ballot_box_with_check: |
+| Platform | Software | Version   | data IO                 |
+| -------- | -------- | --------- | ----------------------- |
+| R        | Seurat   | v3~v4     | :ballot_box_with_check: |
+| Python   | Scanpy   | v1.4~v1.8 | :ballot_box_with_check: |
 
 ___
 
 <div id="3"></div>
-
 ## scDIOR demo[![top](Figures/top.jpg)](#0)
 
 Here, we list several demos to show the powerful performance of scDIOR.
 
 <div id="3.1"></div>
-
 ### 1. Comparison of trajectory inferences
+
+**code**
+
+```R
+# in R
+dior::write_h5(data, file=’scdata.h5’, object.type = ‘singlecellexperiment’)
+```
+
+```python
+# in Python
+adata = diopy.input.read_h5(file = ‘scdata.h5’)
+```
 
 Users can perform trajectory analysis using Monocle3 in R, then transform the single-cell data to Scanpy in Python using scDIOR, such as expression profiles of spliced and unspliced, as well as cell layout. The expression profile can be used to run dynamical RNA velocity analysis and results can be projected on the layout of Monocle3.
 
@@ -132,8 +137,21 @@ Users can perform trajectory analysis using Monocle3 in R, then transform the si
 ![1.trajectory_inference](Figures/1.trajectory_inference.png)
 
 <div id="3.2"></div>
-
 ### 2. Data IO for batch correction
+
+**code**
+
+```python
+# in python
+diopy.output.write_h5(data_py, file = ‘scdata.h5’)
+```
+
+```R
+# in R
+adata = dior::read_h5(file=’scdata.h5’, target.object = ‘seurat’)
+```
+
+
 
 User can employ single-cell data preprocess and normalization method provided by Scanpy, and utilize batches correction method provided by Seurat.
 
@@ -142,8 +160,19 @@ User can employ single-cell data preprocess and normalization method provided by
 ![batch_correct](Figures/batch_correct.png)
 
 <div id="3.3"></div>
-
 ### 3. Data IO for spatial omics data
+
+**code**
+
+```R
+# in R
+dior::write_h5(data, file=’scdata.h5’, object.type = ‘singlecellexperiment’)
+```
+
+```python
+# in Python
+adata = diopy.input.read_h5(file = ‘scdata.h5’)
+```
 
 scDIOR supports spatial omics data IO between R and Python platforms.
 
@@ -152,12 +181,53 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 ![sptail_summary](Figures/sptail_summary.png)
 
 <div id="3.4"></div>
-
 ### 4. Extended function
 
 1. The function to load ‘.rds’ file in Python directly;
+
+   **code**
+
+   ```python
+   # in python
+   adata = diopy.input.read_rds(file = './adata_R.rds',
+                                object_type='seurat',
+                                assay_name='RNA')
+   ```
+
 2. The function to load ‘.h5ad’ file in R directly;
+
+   **code**
+
+   ```R
+   # in R
+   adata_seurat = read_h5ad(file = './adata_Python.h5ad', 
+                     target.object = 'seurat', 
+                     assay_name = 'RNA')
+   ```
+
 3. Command line  
+
+   **description**
+
+   ScDIOR uses the command line to convert different data by calling `scdior`.
+
+   ```
+   usage: scdior [-h] -i INPUT -o OUTPUT -t TARGET -a ASSAY_NAME
+   ```
+
+   `-i,--input` The existing filename for different platforms, such as rds (R) or h5ad (Python).
+
+   `-o,--output`  The filename that needs to be converted, such as from rds to h5ad or from h5ad to rds.
+
+   `-t,--target` The target object for R, such as seruat or singlecellexperiment.
+
+   `-a,--assay_name` The primary data types, such as scRNA data or spatial data.
+
+   **code**
+
+   ```shell
+   $ scdior -i ./adata_test.h5ad -o ./adata_test.rds -t seurat -a RNA
+   ```
 
 [Demo link](https://github.com/JiekaiLab/scDIOR/tree/main/scdior_demo/Seurat4.0.5_Scanpy1.8.1/4.scDIOR_extended_function)
 
@@ -166,7 +236,6 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 ___
 
 <div id="4"></div>
-
 ## Reference websites [![top](Figures/top.jpg)](#0)
 
 1. jupyter docker stacks: 
