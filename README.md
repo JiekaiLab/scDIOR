@@ -1,5 +1,3 @@
-d
-
 # scDIOR
 
 scDIOR: Single cell RNA-seq  Data IO softwaRe
