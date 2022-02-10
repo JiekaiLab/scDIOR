@@ -137,6 +137,8 @@ Users can perform trajectory analysis using Monocle3 in R, then transform the si
 ![1.trajectory_inference](Figures/1.trajectory_inference.png)
 
 <div id="3.2"></div>
+
+
 ### 2. Data IO for batch correction
 
 **code**
@@ -160,6 +162,8 @@ User can employ single-cell data preprocess and normalization method provided by
 ![batch_correct](Figures/batch_correct.png)
 
 <div id="3.3"></div>
+
+
 ### 3. Data IO for spatial omics data
 
 **code**
@@ -181,6 +185,8 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 ![sptail_summary](Figures/sptail_summary.png)
 
 <div id="3.4"></div>
+
+
 ### 4. Extended function
 
 1. The function to load ‘.rds’ file in Python directly;
@@ -236,6 +242,8 @@ scDIOR supports spatial omics data IO between R and Python platforms.
 ___
 
 <div id="4"></div>
+
+
 ## Reference websites [![top](Figures/top.jpg)](#0)
 
 1. jupyter docker stacks: 
