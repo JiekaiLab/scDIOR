@@ -2,7 +2,9 @@
 
 scDIOR: Single cell RNA-seq  Data IO softwaRe
 
-<br>
+[![Github star](https://img.shields.io/github/stars/JiekaiLab/scDIOR?logo=GitHub&color=yellow)](https://github.com/JiekaiLab/scDIOR/stargazers) [![dior version](https://img.shields.io/github/v/release/JiekaiLab/dior?label=dior&logo=Github)](https://github.com/JiekaiLab/dior) [![diopy version](https://img.shields.io/pypi/v/diopy?label=diopy&logo=pypi)](https://pypi.org/project/diopy) [![Downloads](https://pepy.tech/badge/diopy)](https://pepy.tech/project/diopy)  
+
+
 
 <h2 id="0">
     Directory
@@ -15,8 +17,8 @@ scDIOR: Single cell RNA-seq  Data IO softwaRe
       * [2. Docker image](#2.2)
       * [Version control](#2.3)
    * [scDIOR demo](#3)
-      * [1. Comparison of trajectory inferences](#3.1)
-      * [2. Data IO for batch correction](#3.2)
+      * [1. Single-cell data from R to Python](#3.1)
+      * [2. Single-cell data from Python to R](#3.2)
       * [3. Data IO for spatial omics data](#3.3)
       * [4. Extended function](#3.4)
    * [Reference websites](#4)
@@ -25,11 +27,9 @@ ___
 
 <div id="1"></div>
 
-
-
 ## Overview[![top](Figures/top.jpg)](#0)
 
-The scDIOR software was developed for single-cell data transformation between platforms of R and Python based on Hierarchical Data Format Version 5 ([HDF5](https://www.hdfgroup.org/)). There is a data IO ecosystem composed of two modules, [dior](https://github.com/JiekaiLab/dior)  and [diopy](https://pypi.org/project/diopy), between three R packages (Seurat, SingleCellExperiment, Monocle) and a Python package (Scanpy). 
+scDIOR software was developed for single-cell data transformation between platforms of R and Python based on Hierarchical Data Format Version 5 ([HDF5](https://www.hdfgroup.org/)). There is a data IO ecosystem composed of two modules, [dior](https://github.com/JiekaiLab/dior)  and [diopy](https://pypi.org/project/diopy), between three R packages (Seurat, SingleCellExperiment, Monocle) and a Python package (Scanpy). 
 
 scDIOR accommodates a variety of data types across programming languages and platforms in an ultrafast way, including single-cell RNA-seq and spatial resolved transcriptomics data, using only a few codes in IDE or command line interface. 
 
@@ -41,8 +41,6 @@ ___
 
 <div id="2"></div>
 
-
-
 ## Installing scDIOR[![top](Figures/top.jpg)](#0)
 
 Users install and  operate scDIOR following two ways:
@@ -51,8 +49,6 @@ Users install and  operate scDIOR following two ways:
 2. Docker images are available on the [jiekailab/scdior-image](https://hub.docker.com/r/jiekailab/scdior-image).
 
 <div id="2.1"></div>
-
-
 
 ### 1. Conda environment
 
@@ -80,8 +76,6 @@ pip install diopy
 
 <div id="2.2"></div>
 
-
-
 ### 2. Docker image
 
 It is recommend to perform scDIOR in docker image, which ensures that the operating environment remains stable. scDIOR image is available on the [jiekailab/scdior-image](https://hub.docker.com/r/jiekailab/scdior-image).
@@ -103,8 +97,6 @@ The current latest image contains the following main analysis platforms and soft
 
 <div id="2.3"></div>
 
-
-
 ### Version control
 
  At present, scDIOR is widely compatible with Seurat (v3\~v4) and Scanpy (1.4\~1.8) in different docker image. We configured multiple version docker image (https://hub.docker.com/repository/docker/jiekailab/scdior-image) to confirm that scDIOR can work well between multiple versions of Scanpy and Seurat.
@@ -120,15 +112,11 @@ ___
 
 <div id="3"></div>
 
-
-
 ## scDIOR demo[![top](Figures/top.jpg)](#0)
 
 Here, we list several demos to show the powerful performance of scDIOR.
 
 <div id="3.1"></div>
-
-
 
 ### 1. Single-cell data from R to Python
 
@@ -138,7 +126,7 @@ Users can perform trajectory analysis using Monocle3 in R, then transform the si
 
 ```R
 # in R
-dior::write_h5(data, file='scdata.h5' object.type = 'inglecellexperiment')
+dior::write_h5(data, file='scdata.h5' object.type = 'singlecellexperiment')
 ```
 
 ```python
@@ -151,8 +139,6 @@ adata = diopy.input.read_h5(file = 'scdata.h5')
 ![1.trajectory_inference](Figures/1.trajectory_inference.png)
 
 <div id="3.2"></div>
-
-
 
 ### 2. Single-cell data from Python to R
 
@@ -176,8 +162,6 @@ adata = dior::read_h5(file='scdata.h5', target.object = 'seurat')
 
 <div id="3.3"></div>
 
-
-
 ### 3. Data IO for spatial omics data
 
 scDIOR supports spatial omics data IO between R and Python platforms.
@@ -199,8 +183,6 @@ adata = diopy.input.read_h5(file = 'scdata.h5')
 ![sptail_summary](Figures/sptail_summary.png)
 
 <div id="3.4"></div>
-
-
 
 ### 4. Extended function
 
@@ -257,7 +239,6 @@ adata = diopy.input.read_h5(file = 'scdata.h5')
 ___
 
 <div id="4"></div>
-
 ## Reference websites [![top](Figures/top.jpg)](#0)
 
 1. jupyter docker stacks: 
