@@ -2,7 +2,7 @@
 
 scDIOR: Single cell RNA-seq  Data IO softwaRe
 
-[![Github star](https://img.shields.io/github/stars/JiekaiLab/scDIOR?logo=GitHub&color=yellow)](https://github.com/JiekaiLab/scDIOR/stargazers) [![DOI](https://zenodo.org/badge/330159692.svg)](https://zenodo.org/badge/latestdoi/330159692) [![dior version](https://img.shields.io/github/v/release/JiekaiLab/dior?label=dior&logo=Github)](https://github.com/JiekaiLab/dior) [![diopy version](https://img.shields.io/pypi/v/diopy?label=diopy&logo=pypi)](https://pypi.org/project/diopy) [![Downloads](https://pepy.tech/badge/diopy)](https://pepy.tech/project/diopy)  
+[![Github star](https://img.shields.io/github/stars/JiekaiLab/scDIOR?logo=GitHub&color=yellow)](https://github.com/JiekaiLab/scDIOR/stargazers) [![DOI](https://zenodo.org/badge/330159692.svg)](https://zenodo.org/badge/latestdoi/330159692) [![dior version](https://img.shields.io/github/v/release/JiekaiLab/dior?label=dior&logo=Github)](https://github.com/JiekaiLab/dior) [![diopy version](https://img.shields.io/pypi/v/diopy?label=diopy&logo=pypi)](https://pypi.org/project/diopy) [![Downloads](https://static.pepy.tech/personalized-badge/diopy?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads)](https://pepy.tech/project/diopy)
 
 
 
