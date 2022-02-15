@@ -2,7 +2,7 @@
 
 scDIOR: Single cell RNA-seq  Data IO softwaRe
 
-[![Github star](https://img.shields.io/github/stars/JiekaiLab/scDIOR?logo=GitHub&color=yellow)](https://github.com/JiekaiLab/scDIOR/stargazers) [![DOI](https://img.shields.io/badge/DOI-10.1186%2Fs12859--021--04528--3-blue)](https://doi.org/10.1186/s12859-021-04528-3 ) [![dior version](https://img.shields.io/github/v/release/JiekaiLab/dior?label=dior&logo=Github)](https://github.com/JiekaiLab/dior) [![diopy version](https://img.shields.io/pypi/v/diopy?label=diopy&logo=pypi)](https://pypi.org/project/diopy) [![Downloads](https://static.pepy.tech/personalized-badge/diopy?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads)](https://pepy.tech/project/diopy)
+[![Github star](https://img.shields.io/github/stars/JiekaiLab/scDIOR?logo=GitHub&color=yellow)](https://github.com/JiekaiLab/scDIOR/stargazers) [![DOI](https://img.shields.io/badge/DOI-10.1186%2Fs12859--021--04528--3-red)](https://doi.org/10.1186/s12859-021-04528-3 ) [![dior version](https://img.shields.io/github/v/release/JiekaiLab/dior?label=dior&logo=Github)](https://github.com/JiekaiLab/dior) [![diopy version](https://img.shields.io/pypi/v/diopy?label=diopy&logo=pypi)](https://pypi.org/project/diopy) [![Downloads](https://static.pepy.tech/personalized-badge/diopy?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads)](https://pepy.tech/project/diopy)
 
 <h2 id="0">
     Directory
