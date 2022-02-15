@@ -2,9 +2,7 @@
 
 scDIOR: Single cell RNA-seq  Data IO softwaRe
 
-[![Github star](https://img.shields.io/github/stars/JiekaiLab/scDIOR?logo=GitHub&color=yellow)](https://github.com/JiekaiLab/scDIOR/stargazers) [![DOI](https://zenodo.org/badge/330159692.svg)](https://zenodo.org/badge/latestdoi/330159692) [![dior version](https://img.shields.io/github/v/release/JiekaiLab/dior?label=dior&logo=Github)](https://github.com/JiekaiLab/dior) [![diopy version](https://img.shields.io/pypi/v/diopy?label=diopy&logo=pypi)](https://pypi.org/project/diopy) [![Downloads](https://static.pepy.tech/personalized-badge/diopy?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads)](https://pepy.tech/project/diopy)
-
-
+[![Github star](https://img.shields.io/github/stars/JiekaiLab/scDIOR?logo=GitHub&color=yellow)](https://github.com/JiekaiLab/scDIOR/stargazers) [![DOI](https://img.shields.io/badge/DOI-10.1186%2Fs12859--021--04528--3-blue)](https://doi.org/10.1186/s12859-021-04528-3 ) [![dior version](https://img.shields.io/github/v/release/JiekaiLab/dior?label=dior&logo=Github)](https://github.com/JiekaiLab/dior) [![diopy version](https://img.shields.io/pypi/v/diopy?label=diopy&logo=pypi)](https://pypi.org/project/diopy) [![Downloads](https://static.pepy.tech/personalized-badge/diopy?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads)](https://pepy.tech/project/diopy)
 
 <h2 id="0">
     Directory
@@ -26,7 +24,6 @@ scDIOR: Single cell RNA-seq  Data IO softwaRe
 ___
 
 <div id="1"></div>
-
 <br>
 
 ## Overview[![top](Figures/top.jpg)](#0)
@@ -37,12 +34,9 @@ scDIOR accommodates a variety of data types across programming languages and pla
 
 ![overview](Figures/overview.png)
 
-**Our article:**  https://doi.org/10.1186/s12859-021-04528-3 
-
 ___
 
 <div id="2"></div>
-
 <br>
 
 ## Installing scDIOR[![top](Figures/top.jpg)](#0)
@@ -53,7 +47,6 @@ Users install and  operate scDIOR following two ways:
 2. Docker images are available on the [jiekailab/scdior-image](https://hub.docker.com/r/jiekailab/scdior-image).
 
 <div id="2.1"></div>
-
 <br>
 
 ### 1. Conda environment
@@ -81,7 +74,6 @@ pip install diopy
 ```
 
 <div id="2.2"></div>
-
 <br>
 
 ### 2. Docker image
@@ -104,7 +96,6 @@ The current latest image contains the following main analysis platforms and soft
 | dior                 | 0.1.5   | diopy   | 0.5.2   |
 
 <div id="2.3"></div>
-
 <br>
 
 ### Version control
@@ -121,7 +112,6 @@ The current latest image contains the following main analysis platforms and soft
 ___
 
 <div id="3"></div>
-
 <br>
 
 ## scDIOR demo[![top](Figures/top.jpg)](#0)
@@ -129,7 +119,6 @@ ___
 Here, we list several demos to show the powerful performance of scDIOR.
 
 <div id="3.1"></div>
-
 <br>
 
 ### 1. Single-cell data from R to Python
@@ -153,7 +142,6 @@ adata = diopy.input.read_h5(file = 'scdata.h5')
 ![1.trajectory_inference](Figures/1.trajectory_inference.png)
 
 <div id="3.2"></div>
-
 <br>
 
 ### 2. Single-cell data from Python to R
@@ -177,7 +165,6 @@ adata = dior::read_h5(file='scdata.h5', target.object = 'seurat')
 ![batch_correct](Figures/batch_correct.png)
 
 <div id="3.3"></div>
-
 <br>
 
 ### 3. Data IO for spatial omics data
@@ -201,7 +188,6 @@ adata = diopy.input.read_h5(file = 'scdata.h5')
 ![sptail_summary](Figures/sptail_summary.png)
 
 <div id="3.4"></div>
-
 <br>
 
 ### 4. Extended function
@@ -263,14 +249,15 @@ ___
 
 ## Reference websites [![top](Figures/top.jpg)](#0)
 
-1. jupyter docker stacks: 
+1. Our article:  https://doi.org/10.1186/s12859-021-04528-3 
+2. jupyter docker stacks: 
    1. https://github.com/jupyter/docker-stacks
    2. https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html
-2. fixuid: https://github.com/boxboat/fixuid
-3. Seurat: https://satijalab.org/seurat/index.html
-4. monocle3: https://cole-trapnell-lab.github.io/monocle3/
-5. Scanpy: https://scanpy.readthedocs.io/en/stable/index.html
-6. Scvelo: https://scanpy.readthedocs.io/en/stable/index.html
+3. fixuid: https://github.com/boxboat/fixuid
+4. Seurat: https://satijalab.org/seurat/index.html
+5. monocle3: https://cole-trapnell-lab.github.io/monocle3/
+6. Scanpy: https://scanpy.readthedocs.io/en/stable/index.html
+7. Scvelo: https://scanpy.readthedocs.io/en/stable/index.html
 
 
 
